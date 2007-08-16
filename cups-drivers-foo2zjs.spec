@@ -4,8 +4,8 @@
 Summary:	A linux printer driver for ZjStream protocol
 Name:		cups-drivers-%{rname}
 Version:	0.0
-Release:	%mkrel 0.%{snap}.1
-Group:		System/Configuration/Printing
+Release:	%mkrel 0.%{snap}.2
+Group:		System/Printing
 License:	GPL
 URL:		http://foo2zjs.rkkda.com/
 Source0:	http://foo2zjs.rkkda.com/foo2zjs.tar.gz
@@ -20,8 +20,6 @@ BuildRequires:	jbig-devel
 Requires:	lcms
 Requires:	wget
 Requires:	foomatic-db-engine
-Requires(post):	rpm-helper
-Requires(preun):rpm-helper
 # psutils, unzip, and mscompress needed by the foo2zjs driver
 Requires:	psutils, unzip
 %if %mdkversion >= 200700
@@ -219,26 +217,26 @@ rm -rf %{buildroot}
 %attr(0644,root,root) %{_datadir}/foomatic/db/source/driver/*.xml
 
 %attr(0755,root,root) %dir %{_datadir}/cups/model/%{rname}
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Generic-OAKT_Printer.ppd.gz
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Generic-ZjStream_Printer.ppd.gz
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-Color_LaserJet_1500.ppd.gz
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-Color_LaserJet_1600.ppd.gz
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-Color_LaserJet_2600n.ppd.gz
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-LaserJet_1000.ppd.gz
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-LaserJet_1005.ppd.gz
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-LaserJet_1018.ppd.gz
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-LaserJet_1020.ppd.gz
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-LaserJet_1022.ppd.gz
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-LaserJet_M1005_MFP.ppd.gz
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/KonicaMinolta-magicolor_2480_MF.ppd.gz
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/KonicaMinolta-magicolor_2490_MF.ppd.gz
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/KonicaMinolta-magicolor_2530_DL.ppd.gz
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Minolta-Color_PageWorks_Pro_L.ppd.gz
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Minolta-magicolor_2200_DL.ppd.gz
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Minolta-magicolor_2300_DL.ppd.gz
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Minolta-magicolor_2430_DL.ppd.gz
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Samsung-CLP-300.ppd.gz
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Samsung-CLP-600.ppd.gz
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Samsung-CLX-3160.ppd.gz
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Xerox-Phaser-6110.ppd.gz
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Xerox-Phaser-6115MFP.ppd.gz
+%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Generic-OAKT_Printer.ppd*
+%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Generic-ZjStream_Printer.ppd*
+%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-Color_LaserJet_1500.ppd*
+%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-Color_LaserJet_1600.ppd*
+%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-Color_LaserJet_2600n.ppd*
+%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-LaserJet_1000.ppd*
+%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-LaserJet_1005.ppd*
+%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-LaserJet_1018.ppd*
+%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-LaserJet_1020.ppd*
+%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-LaserJet_1022.ppd*
+%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-LaserJet_M1005_MFP.ppd*
+%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/KonicaMinolta-magicolor_2480_MF.ppd*
+%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/KonicaMinolta-magicolor_2490_MF.ppd*
+%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/KonicaMinolta-magicolor_2530_DL.ppd*
+%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Minolta-Color_PageWorks_Pro_L.ppd*
+%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Minolta-magicolor_2200_DL.ppd*
+%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Minolta-magicolor_2300_DL.ppd*
+%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Minolta-magicolor_2430_DL.ppd*
+%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Samsung-CLP-300.ppd*
+%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Samsung-CLP-600.ppd*
+%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Samsung-CLX-3160.ppd*
+%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Xerox-Phaser-6110.ppd*
+%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Xerox-Phaser-6115MFP.ppd*
