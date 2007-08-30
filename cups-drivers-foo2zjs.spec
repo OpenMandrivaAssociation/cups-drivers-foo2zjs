@@ -1,10 +1,10 @@
 %define rname foo2zjs
-%define snap 20070718
+%define snap 20070820
 
 Summary:	A linux printer driver for ZjStream protocol
 Name:		cups-drivers-%{rname}
 Version:	0.0
-Release:	%mkrel 0.%{snap}.3
+Release:	%mkrel 0.%{snap}.1
 Group:		System/Printing
 License:	GPL
 URL:		http://foo2zjs.rkkda.com/
