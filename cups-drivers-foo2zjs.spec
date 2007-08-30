@@ -28,6 +28,7 @@ Requires:	mscompress
 Conflicts:	cups-drivers = 2007
 Conflicts:	printer-utils = 2007
 Conflicts:	printer-filters = 2007
+Conflicts:	foomatic-db < 1:3.0.2-1.20070820.1mdv2008.0
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 
 %description
