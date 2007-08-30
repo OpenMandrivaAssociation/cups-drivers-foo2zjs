@@ -4,7 +4,7 @@
 Summary:	A linux printer driver for ZjStream protocol
 Name:		cups-drivers-%{rname}
 Version:	0.0
-Release:	%mkrel 0.%{snap}.2
+Release:	%mkrel 0.%{snap}.3
 Group:		System/Printing
 License:	GPL
 URL:		http://foo2zjs.rkkda.com/
@@ -25,9 +25,9 @@ Requires:	psutils, unzip
 %if %mdkversion >= 200700
 Requires:	mscompress
 %endif
-Conflicts:	cups-drivers-2006 cups-drivers-2007
-Conflicts:	printer-utils-2006 printer-utils-2007
-Conflicts:	printer-filters-2006 printer-filters-2007
+Conflicts:	cups-drivers = 2007
+Conflicts:	printer-utils = 2007
+Conflicts:	printer-filters = 2007
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 
 %description
