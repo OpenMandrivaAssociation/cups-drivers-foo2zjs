@@ -238,6 +238,7 @@ rm -rf %{buildroot}
 %attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Minolta-magicolor_2430_DL.ppd*
 %attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Samsung-CLP-300.ppd*
 %attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Samsung-CLP-600.ppd*
+%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Samsung-CLX-2160.ppd*
 %attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Samsung-CLX-3160.ppd*
 %attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Xerox-Phaser-6110.ppd*
 %attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Xerox-Phaser-6115MFP.ppd*
