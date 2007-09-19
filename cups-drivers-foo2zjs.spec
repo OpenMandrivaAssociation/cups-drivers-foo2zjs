@@ -4,7 +4,7 @@
 Summary:	A linux printer driver for ZjStream protocol
 Name:		cups-drivers-%{rname}
 Version:	0.0
-Release:	%mkrel 0.%{snap}.1
+Release:	%mkrel 0.%{snap}.2
 Group:		System/Printing
 License:	GPL
 URL:		http://foo2zjs.rkkda.com/
@@ -22,9 +22,7 @@ Requires:	wget
 Requires:	foomatic-db-engine
 # psutils, unzip, and mscompress needed by the foo2zjs driver
 Requires:	psutils, unzip
-%if %mdkversion >= 200700
 Requires:	mscompress
-%endif
 Conflicts:	cups-drivers = 2007
 Conflicts:	printer-utils = 2007
 Conflicts:	printer-filters = 2007
@@ -109,10 +107,6 @@ make install \
     FOODB=%{buildroot}%{_datadir}/foomatic/db/source \
     MODEL=%{buildroot}%{_datadir}/cups/model/%{rname}
 
-%if %mdkversion < 200700
-install -m0755 msexpand %{buildroot}%{_bindir}
-%endif
-
 install -m0755 getweb %{buildroot}%{_bindir}/%{rname}-getweb
 
 mv %{buildroot}%{_bindir}/usb_printerid %{buildroot}%{_sbindir}/usb_printerid
@@ -128,8 +122,7 @@ ln -s hplj1000 %{buildroot}%{_sbindir}/hplj1020
 install -m0644 hplj10xx.rules %{buildroot}%{_sysconfdir}/udev/rules.d/70-hplj10xx.rules
 perl -p -i -e 's:%{_sysconfdir}/hotplug/usb:%{_sbindir}:' %{buildroot}%{_sysconfdir}/udev/rules.d/70-hplj10xx.rules
 
-ln -s /etc/printer %{buildroot}%{_datadir}/%{rname}/firmware
-ln -s /etc/printer %{buildroot}%{_datadir}/firmware
+mkdir -p %{buildroot}%{_datadir}/%{name}/firmware
 
 # cleanup
 rm -rf %{buildroot}%{_datadir}/doc/%{rname}
@@ -159,10 +152,6 @@ rm -rf %{buildroot}
 %attr(0755,root,root) %{_bindir}/qpdldecode
 %attr(0755,root,root) %{_bindir}/xqxdecode
 %attr(0755,root,root) %{_bindir}/zjsdecode
-
-%if %mdkversion < 200700
-%{_bindir}/msexpand
-%endif
 
 %attr(0755,root,root) %{_sbindir}/usb_printerid
 %attr(0755,root,root) %{_sbindir}/hplj1000
@@ -209,9 +198,6 @@ rm -rf %{buildroot}
 %attr(0644,root,root) %{_datadir}/%{rname}/crd/*.ps
 %attr(0644,root,root) %{_datadir}/foo2qpdl/crd/*cms*
 %attr(0644,root,root) %{_datadir}/foo2qpdl/crd/*.ps
-
-%{_datadir}/firmware
-%{_datadir}/%{rname}/firmware/printer
 
 %attr(0644,root,root) %{_datadir}/foomatic/db/source/opt/*.xml
 %attr(0644,root,root) %{_datadir}/foomatic/db/source/printer/*.xml
