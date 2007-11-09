@@ -1,5 +1,5 @@
 %define rname foo2zjs
-%define snap 20070820
+%define snap 20071109
 
 Summary:	A linux printer driver for ZjStream protocol
 Name:		cups-drivers-%{rname}
@@ -70,7 +70,7 @@ This package provides foomatic and cups drivers for the following printers:
 %patch0 -p1
 %patch1 -p0
 %patch2 -p0
-%patch3 -p0
+%patch3 -p1
 
 # fix attribs
 chmod 644 COPYING ChangeLog INSTALL INSTALL.usb README
@@ -134,97 +134,107 @@ rm -rf %{buildroot}
 %defattr(0644,root,root,0755)
 %doc COPYING ChangeLog INSTALL INSTALL.usb README manual.pdf
 %{_sysconfdir}/udev/rules.d/70-hplj10xx.rules
-%attr(0755,root,root) %{_bindir}/arm2hpdl
-%attr(0755,root,root) %{_bindir}/foo2hp
-%attr(0755,root,root) %{_bindir}/foo2hp2600-wrapper
-%attr(0755,root,root) %{_bindir}/foo2lava
-%attr(0755,root,root) %{_bindir}/foo2lava-wrapper
-%attr(0755,root,root) %{_bindir}/foo2oak-wrapper
-%attr(0755,root,root) %{_bindir}/foo2qpdl
-%attr(0755,root,root) %{_bindir}/foo2qpdl-wrapper
-%attr(0755,root,root) %{_bindir}/foo2xqx
-%attr(0755,root,root) %{_bindir}/foo2xqx-wrapper
-%attr(0755,root,root) %{_bindir}/%{rname}
-%attr(0755,root,root) %{_bindir}/%{rname}-getweb
-%attr(0755,root,root) %{_bindir}/%{rname}-wrapper
-%attr(0755,root,root) %{_bindir}/lavadecode
-%attr(0755,root,root) %{_bindir}/opldecode
-%attr(0755,root,root) %{_bindir}/qpdldecode
-%attr(0755,root,root) %{_bindir}/xqxdecode
-%attr(0755,root,root) %{_bindir}/zjsdecode
+%{_mandir}/man1/foo2hp.1*
+%{_mandir}/man1/foo2hp2600-wrapper.1*
+%{_mandir}/man1/foo2lava-wrapper.1*
+%{_mandir}/man1/foo2lava.1*
+%{_mandir}/man1/foo2oak-wrapper.1*
+%{_mandir}/man1/foo2oak.1*
+%{_mandir}/man1/foo2qpdl-wrapper.1*
+%{_mandir}/man1/foo2qpdl.1*
+%{_mandir}/man1/foo2slx-wrapper.1*
+%{_mandir}/man1/foo2slx.1*
+%{_mandir}/man1/foo2xqx-wrapper.1*
+%{_mandir}/man1/foo2xqx.1*
+%{_mandir}/man1/%{rname}-wrapper.1*
+%{_mandir}/man1/%{rname}.1*
+%{_mandir}/man1/lavadecode.1*
+%{_mandir}/man1/oakdecode.1*
+%{_mandir}/man1/opldecode.1*
+%{_mandir}/man1/qpdldecode.1*
+%{_mandir}/man1/slxdecode.1*
+%{_mandir}/man1/xqxdecode.1*
+%{_mandir}/man1/zjsdecode.1*
 
-%attr(0755,root,root) %{_sbindir}/usb_printerid
-%attr(0755,root,root) %{_sbindir}/hplj1000
-%attr(0755,root,root) %{_sbindir}/hplj1005
-%attr(0755,root,root) %{_sbindir}/hplj1018
-%attr(0755,root,root) %{_sbindir}/hplj1020
+%dir %{_datadir}/foo2hp
+%dir %{_datadir}/foo2hp/icm
+%dir %{_datadir}/%{rname}
+%dir %{_datadir}/%{rname}/crd
+%dir %{_datadir}/%{rname}/firmware
+%dir %{_datadir}/%{rname}/icm
+%dir %{_datadir}/foo2xqx
+%dir %{_datadir}/foo2lava
+%dir %{_datadir}/foo2lava/icm
+%dir %{_datadir}/foo2oak
+%dir %{_datadir}/foo2oak/icm
+%dir %{_datadir}/foo2qpdl
+%dir %{_datadir}/foo2qpdl/crd
+%dir %{_datadir}/foo2qpdl/icm
 
-%attr(0644,root,root) %{_mandir}/man1/foo2hp.1*
-%attr(0644,root,root) %{_mandir}/man1/foo2hp2600-wrapper.1*
-%attr(0644,root,root) %{_mandir}/man1/foo2lava.1*
-%attr(0644,root,root) %{_mandir}/man1/foo2lava-wrapper.1*
-%attr(0644,root,root) %{_mandir}/man1/foo2oak.1*
-%attr(0644,root,root) %{_mandir}/man1/foo2oak-wrapper.1*
-%attr(0644,root,root) %{_mandir}/man1/foo2qpdl.1*
-%attr(0644,root,root) %{_mandir}/man1/foo2qpdl-wrapper.1*
-%attr(0644,root,root) %{_mandir}/man1/foo2xqx.1*
-%attr(0644,root,root) %{_mandir}/man1/foo2xqx-wrapper.1*
-%attr(0644,root,root) %{_mandir}/man1/%{rname}.1*
-%attr(0644,root,root) %{_mandir}/man1/%{rname}-wrapper.1*
-%attr(0644,root,root) %{_mandir}/man1/lavadecode.1*
-%attr(0644,root,root) %{_mandir}/man1/oakdecode.1*
-%attr(0644,root,root) %{_mandir}/man1/opldecode.1*
-%attr(0644,root,root) %{_mandir}/man1/qpdldecode.1*
-%attr(0644,root,root) %{_mandir}/man1/xqxdecode.1*
-%attr(0644,root,root) %{_mandir}/man1/zjsdecode.1*
+%{_datadir}/%{rname}/*.ps
+%{_datadir}/%{rname}/crd/*.crd
+%{_datadir}/%{rname}/crd/*.ps
+%{_datadir}/foo2qpdl/crd/*cms*
+%{_datadir}/foo2qpdl/crd/*.ps
 
-%attr(0755,root,root) %dir %{_datadir}/foo2hp
-%attr(0755,root,root) %dir %{_datadir}/foo2hp/icm
-%attr(0755,root,root) %dir %{_datadir}/%{rname}
-%attr(0755,root,root) %dir %{_datadir}/%{rname}/crd
-%attr(0755,root,root) %dir %{_datadir}/%{rname}/firmware
-%attr(0755,root,root) %dir %{_datadir}/%{rname}/icm
-%attr(0755,root,root) %dir %{_datadir}/foo2xqx
-%attr(0755,root,root) %dir %{_datadir}/foo2lava
-%attr(0755,root,root) %dir %{_datadir}/foo2lava/icm
-%attr(0755,root,root) %dir %{_datadir}/foo2oak
-%attr(0755,root,root) %dir %{_datadir}/foo2oak/icm
-%attr(0755,root,root) %dir %{_datadir}/foo2qpdl
-%attr(0755,root,root) %dir %{_datadir}/foo2qpdl/crd
-%attr(0755,root,root) %dir %{_datadir}/foo2qpdl/icm
+%{_datadir}/foomatic/db/source/opt/*.xml
+%{_datadir}/foomatic/db/source/printer/*.xml
+%{_datadir}/foomatic/db/source/driver/*.xml
 
-%attr(0644,root,root) %{_datadir}/%{rname}/*.ps
-%attr(0644,root,root) %{_datadir}/%{rname}/crd/*.crd
-%attr(0644,root,root) %{_datadir}/%{rname}/crd/*.ps
-%attr(0644,root,root) %{_datadir}/foo2qpdl/crd/*cms*
-%attr(0644,root,root) %{_datadir}/foo2qpdl/crd/*.ps
+%dir %{_datadir}/cups/model/%{rname}
+%{_datadir}/cups/model/%{rname}/Generic-OAKT_Printer.ppd*
+%{_datadir}/cups/model/%{rname}/Generic-ZjStream_Printer.ppd*
+%{_datadir}/cups/model/%{rname}/HP-Color_LaserJet_1500.ppd*
+%{_datadir}/cups/model/%{rname}/HP-Color_LaserJet_1600.ppd*
+%{_datadir}/cups/model/%{rname}/HP-Color_LaserJet_2600n.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_1000.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_1005.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_1018.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_1020.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_1022.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_M1005_MFP.ppd*
+%{_datadir}/cups/model/%{rname}/KonicaMinolta-magicolor_2480_MF.ppd*
+%{_datadir}/cups/model/%{rname}/KonicaMinolta-magicolor_2490_MF.ppd*
+%{_datadir}/cups/model/%{rname}/KonicaMinolta-magicolor_2530_DL.ppd*
+%{_datadir}/cups/model/%{rname}/Lexmark-C500.ppd.gz
+%{_datadir}/cups/model/%{rname}/Minolta-Color_PageWorks_Pro_L.ppd*
+%{_datadir}/cups/model/%{rname}/Minolta-magicolor_2200_DL.ppd*
+%{_datadir}/cups/model/%{rname}/Minolta-magicolor_2300_DL.ppd*
+%{_datadir}/cups/model/%{rname}/Minolta-magicolor_2430_DL.ppd*
+%{_datadir}/cups/model/%{rname}/Samsung-CLP-300.ppd*
+%{_datadir}/cups/model/%{rname}/Samsung-CLP-600.ppd*
+%{_datadir}/cups/model/%{rname}/Samsung-CLX-2160.ppd*
+%{_datadir}/cups/model/%{rname}/Samsung-CLX-3160.ppd*
+%{_datadir}/cups/model/%{rname}/Xerox-Phaser-6110.ppd*
+%{_datadir}/cups/model/%{rname}/Xerox-Phaser-6115MFP.ppd*
 
-%attr(0644,root,root) %{_datadir}/foomatic/db/source/opt/*.xml
-%attr(0644,root,root) %{_datadir}/foomatic/db/source/printer/*.xml
-%attr(0644,root,root) %{_datadir}/foomatic/db/source/driver/*.xml
-
-%attr(0755,root,root) %dir %{_datadir}/cups/model/%{rname}
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Generic-OAKT_Printer.ppd*
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Generic-ZjStream_Printer.ppd*
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-Color_LaserJet_1500.ppd*
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-Color_LaserJet_1600.ppd*
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-Color_LaserJet_2600n.ppd*
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-LaserJet_1000.ppd*
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-LaserJet_1005.ppd*
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-LaserJet_1018.ppd*
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-LaserJet_1020.ppd*
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-LaserJet_1022.ppd*
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/HP-LaserJet_M1005_MFP.ppd*
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/KonicaMinolta-magicolor_2480_MF.ppd*
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/KonicaMinolta-magicolor_2490_MF.ppd*
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/KonicaMinolta-magicolor_2530_DL.ppd*
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Minolta-Color_PageWorks_Pro_L.ppd*
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Minolta-magicolor_2200_DL.ppd*
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Minolta-magicolor_2300_DL.ppd*
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Minolta-magicolor_2430_DL.ppd*
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Samsung-CLP-300.ppd*
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Samsung-CLP-600.ppd*
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Samsung-CLX-2160.ppd*
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Samsung-CLX-3160.ppd*
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Xerox-Phaser-6110.ppd*
-%attr(0644,root,root) %{_datadir}/cups/model/%{rname}/Xerox-Phaser-6115MFP.ppd*
+%defattr(0755,root,root,0755)
+%{_bindir}/%{rname}
+%{_bindir}/%{rname}-getweb
+%{_bindir}/%{rname}-wrapper
+%{_bindir}/arm2hpdl
+%{_bindir}/foo2hp
+%{_bindir}/foo2hp2600-wrapper
+%{_bindir}/foo2lava
+%{_bindir}/foo2lava-wrapper
+%{_bindir}/foo2oak
+%{_bindir}/foo2oak-wrapper
+%{_bindir}/foo2qpdl
+%{_bindir}/foo2qpdl-wrapper
+%{_bindir}/foo2slx
+%{_bindir}/foo2slx-wrapper
+%{_bindir}/foo2xqx
+%{_bindir}/foo2xqx-wrapper
+%{_bindir}/foo2zjs-pstops
+%{_bindir}/lavadecode
+%{_bindir}/oakdecode
+%{_bindir}/opldecode
+%{_bindir}/qpdldecode
+%{_bindir}/slxdecode
+%{_bindir}/xqxdecode
+%{_bindir}/zjsdecode
+%{_sbindir}/usb_printerid
+%{_sbindir}/hplj1000
+%{_sbindir}/hplj1005
+%{_sbindir}/hplj1018
+%{_sbindir}/hplj1020
