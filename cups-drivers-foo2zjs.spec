@@ -4,7 +4,7 @@
 Summary:	A linux printer driver for ZjStream protocol
 Name:		cups-drivers-%{rname}
 Version:	0.0
-Release:	%mkrel 0.%{snap}.3
+Release:	%mkrel 0.%{snap}.4
 Group:		System/Printing
 License:	GPL
 URL:		http://foo2zjs.rkkda.com/
@@ -82,7 +82,7 @@ make CFLAGS="%{optflags}"
 # (blino) don't try to rename the device,
 #         it has already been renamed to the exact same name in 50-mdk.rules
 #         so udev would skip the rule
-perl -p -i -e 's:(KERNEL|BUS|SYSFS.*?)=([^=]):$1==$2:g;s{SYMLINK=}{SYMLINK+=}g;s{(?:NAME|MODE)=.*?,\s*}{}g;s:===:==:g' hplj10xx.rules
+#perl -p -i -e 's:(KERNEL|BUS|SYSFS.*?)=([^=]):$1==$2:g;s{SYMLINK=}{SYMLINK+=}g;s{(?:NAME|MODE)=.*?,\s*}{}g;s:===:==:g' hplj10xx.rules
 
 %install
 rm -rf %{buildroot}
@@ -91,7 +91,7 @@ install -d %{buildroot}%{_bindir}
 install -d %{buildroot}%{_sbindir}
 install -d %{buildroot}%{_datadir}/foomatic/db/source/{driver,opt,printer}
 install -d %{buildroot}%{_datadir}/cups/model/%{rname}
-install -d %{buildroot}%{_sysconfdir}/udev/rules.d
+#install -d %{buildroot}%{_sysconfdir}/udev/rules.d
 
 make install \
     PREFIX=%{buildroot}%{_prefix} \
@@ -119,8 +119,8 @@ ln -s hplj1000 %{buildroot}%{_sbindir}/hplj1005
 ln -s hplj1000 %{buildroot}%{_sbindir}/hplj1018
 ln -s hplj1000 %{buildroot}%{_sbindir}/hplj1020
 
-install -m0644 hplj10xx.rules %{buildroot}%{_sysconfdir}/udev/rules.d/70-hplj10xx.rules
-perl -p -i -e 's:%{_sysconfdir}/hotplug/usb:%{_sbindir}:' %{buildroot}%{_sysconfdir}/udev/rules.d/70-hplj10xx.rules
+#install -m0644 hplj10xx.rules %{buildroot}%{_sysconfdir}/udev/rules.d/70-hplj10xx.rules
+#perl -p -i -e 's:%{_sysconfdir}/hotplug/usb:%{_sbindir}:' %{buildroot}%{_sysconfdir}/udev/rules.d/70-hplj10xx.rules
 
 mkdir -p %{buildroot}%{_datadir}/%{name}/firmware
 
@@ -133,7 +133,7 @@ rm -rf %{buildroot}
 %files
 %defattr(0644,root,root,0755)
 %doc COPYING ChangeLog INSTALL INSTALL.usb README manual.pdf
-%{_sysconfdir}/udev/rules.d/70-hplj10xx.rules
+#%{_sysconfdir}/udev/rules.d/70-hplj10xx.rules
 %{_mandir}/man1/foo2hp.1*
 %{_mandir}/man1/foo2hp2600-wrapper.1*
 %{_mandir}/man1/foo2lava-wrapper.1*
