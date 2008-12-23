@@ -4,7 +4,7 @@
 Summary:	A linux printer driver for ZjStream protocol
 Name:		cups-drivers-%{rname}
 Version:	0.0
-Release:	%mkrel 0.%{snap}.4
+Release:	%mkrel 0.%{snap}.5
 Group:		System/Printing
 License:	GPL
 URL:		http://foo2zjs.rkkda.com/
@@ -13,6 +13,7 @@ Patch0:		foo2zjs-system_icc2ps.diff
 Patch1:		foo2zjs-install_fix.diff
 Patch2:		foo2zjs-cflags.diff
 Patch3:		foo2zjs-system_jbig.diff
+Patch4:		foo2zjs-LDFLAGS.diff
 BuildRequires:	lcms
 BuildRequires:	ghostscript
 BuildRequires:	foomatic-filters
@@ -27,7 +28,7 @@ Conflicts:	cups-drivers = 2007
 Conflicts:	printer-utils = 2007
 Conflicts:	printer-filters = 2007
 Conflicts:	foomatic-db < 1:3.0.2-1.20070820.1mdv2008.0
-BuildRoot:	%{_tmppath}/%{name}-%{version}-root
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 foo2zjs is an open source printer driver for printers that use the Zenographics
@@ -71,12 +72,13 @@ This package provides foomatic and cups drivers for the following printers:
 %patch1 -p0
 %patch2 -p0
 %patch3 -p1
+%patch4 -p0
 
 # fix attribs
 chmod 644 COPYING ChangeLog INSTALL INSTALL.usb README
 
 %build
-make CFLAGS="%{optflags}"
+make CFLAGS="%{optflags}" LDFLAGS="%{ldflags}"
 
 # Fit udev rules to stricter syntax of new udev
 # (blino) don't try to rename the device,
