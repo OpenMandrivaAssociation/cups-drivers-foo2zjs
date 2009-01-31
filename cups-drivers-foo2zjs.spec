@@ -4,7 +4,7 @@
 Summary:	A linux printer driver for ZjStream protocol
 Name:		cups-drivers-%{rname}
 Version:	0.0
-Release:	%mkrel 0.%{snap}.5
+Release:	%mkrel 0.%{snap}.6
 Group:		System/Printing
 License:	GPL
 URL:		http://foo2zjs.rkkda.com/
