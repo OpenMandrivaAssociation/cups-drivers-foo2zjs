@@ -4,7 +4,7 @@
 Summary:	A linux printer driver for ZjStream protocol
 Name:		cups-drivers-%{rname}
 Version:	0.0
-Release:	%mkrel 0.%{snap}.6
+Release:	%mkrel 0.%{snap}.7
 Group:		System/Printing
 License:	GPL
 URL:		http://foo2zjs.rkkda.com/
@@ -128,6 +128,9 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/firmware
 
 # cleanup
 rm -rf %{buildroot}%{_datadir}/doc/%{rname}
+
+# provided by foomatic-db
+rm %{buildroot}/%{_datadir}/foomatic/db/source/printer/Generic-OAKT_Printer.xml
 
 %clean
 rm -rf %{buildroot}
