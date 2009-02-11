@@ -1,16 +1,15 @@
 %define rname foo2zjs
-%define snap 20071109
+%define snap 20090122
 
 Summary:	A linux printer driver for ZjStream protocol
 Name:		cups-drivers-%{rname}
 Version:	0.0
-Release:	%mkrel 0.%{snap}.7
+Release:	%mkrel 0.%{snap}.1
 Group:		System/Printing
 License:	GPL
 URL:		http://foo2zjs.rkkda.com/
 Source0:	http://foo2zjs.rkkda.com/foo2zjs.tar.gz
 Patch0:		foo2zjs-system_icc2ps.diff
-Patch1:		foo2zjs-install_fix.diff
 Patch2:		foo2zjs-cflags.diff
 Patch3:		foo2zjs-system_jbig.diff
 Patch4:		foo2zjs-LDFLAGS.diff
@@ -34,44 +33,14 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 foo2zjs is an open source printer driver for printers that use the Zenographics
 ZjStream wire protocol for their print data, such as the Minolta/QMS magicolor
 2300 DL. These printers are often erroneously referred to as winprinters or GDI
-printers.
-
-foo2zjs: a linux printer driver for ZjStream protocol
-e.g. Minolta magicolor 2200/2300/2430 DL, HP LaserJet 1018/1020/1022
-
-This package provides foomatic and cups drivers for the following printers:
-
- o Generic OAKT Printer
- o Generic ZjStream Printer
- o HP Color LaserJet 1500
- o HP Color LaserJet 1600
- o HP Color LaserJet 2600n
- o HP LaserJet 1000
- o HP LaserJet 1005
- o HP LaserJet 1018
- o HP LaserJet 1020
- o HP LaserJet 1022
- o HP LaserJet M1005 MFP
- o KonicaMinolta magicolor 2480 MF
- o KonicaMinolta magicolor 2490 MF
- o KonicaMinolta magicolor 2530 DL
- o Minolta Color PageWorks/Pro L
- o Minolta magicolor 2200 DL
- o Minolta magicolor 2300 DL
- o Minolta magicolor 2430 DL
- o Samsung CLP-300
- o Samsung CLP-600
- o Samsung CLX-3160
- o Xerox Phaser 6110
- o Xerox Phaser 6115MFP
+printers. Please read the README file for a list of supported printers.
 
 %prep
 
 %setup -q -n %{rname}
 %patch0 -p1
-%patch1 -p0
 %patch2 -p0
-%patch3 -p1
+%patch3 -p0
 %patch4 -p0
 
 # fix attribs
@@ -96,6 +65,7 @@ install -d %{buildroot}%{_datadir}/cups/model/%{rname}
 #install -d %{buildroot}%{_sysconfdir}/udev/rules.d
 
 make install \
+    DESTDIR="%{buildroot}" \
     PREFIX=%{buildroot}%{_prefix} \
     BIN=%{buildroot}%{_bindir} \
     SHAREZJS=%{buildroot}%{_datadir}/%{rname} \
@@ -108,6 +78,9 @@ make install \
     DOCDIR=%{buildroot}%{_datadir}/doc/%{rname}/ \
     FOODB=%{buildroot}%{_datadir}/foomatic/db/source \
     MODEL=%{buildroot}%{_datadir}/cups/model/%{rname}
+
+# bork, bork, bork
+mv %{buildroot}/bin/usb_printerid %{buildroot}%{_bindir}/
 
 install -m0755 getweb %{buildroot}%{_bindir}/%{rname}-getweb
 
@@ -139,25 +112,31 @@ rm -rf %{buildroot}
 %defattr(0644,root,root,0755)
 %doc COPYING ChangeLog INSTALL INSTALL.usb README manual.pdf
 #%{_sysconfdir}/udev/rules.d/70-hplj10xx.rules
+%{_mandir}/man1/arm2hpdl.1*
+%{_mandir}/man1/foo2hiperc.1*
+%{_mandir}/man1/foo2hiperc-wrapper.1*
 %{_mandir}/man1/foo2hp.1*
 %{_mandir}/man1/foo2hp2600-wrapper.1*
-%{_mandir}/man1/foo2lava-wrapper.1*
 %{_mandir}/man1/foo2lava.1*
-%{_mandir}/man1/foo2oak-wrapper.1*
+%{_mandir}/man1/foo2lava-wrapper.1*
 %{_mandir}/man1/foo2oak.1*
-%{_mandir}/man1/foo2qpdl-wrapper.1*
+%{_mandir}/man1/foo2oak-wrapper.1*
 %{_mandir}/man1/foo2qpdl.1*
-%{_mandir}/man1/foo2slx-wrapper.1*
+%{_mandir}/man1/foo2qpdl-wrapper.1*
 %{_mandir}/man1/foo2slx.1*
-%{_mandir}/man1/foo2xqx-wrapper.1*
+%{_mandir}/man1/foo2slx-wrapper.1*
 %{_mandir}/man1/foo2xqx.1*
-%{_mandir}/man1/%{rname}-wrapper.1*
-%{_mandir}/man1/%{rname}.1*
+%{_mandir}/man1/foo2xqx-wrapper.1*
+%{_mandir}/man1/foo2zjs-pstops.1*
+%{_mandir}/man1/hipercdecode.1*
 %{_mandir}/man1/lavadecode.1*
 %{_mandir}/man1/oakdecode.1*
 %{_mandir}/man1/opldecode.1*
 %{_mandir}/man1/qpdldecode.1*
+%{_mandir}/man1/%{rname}.1*
+%{_mandir}/man1/%{rname}-wrapper.1*
 %{_mandir}/man1/slxdecode.1*
+%{_mandir}/man1/usb_printerid.1*
 %{_mandir}/man1/xqxdecode.1*
 %{_mandir}/man1/zjsdecode.1*
 
@@ -192,32 +171,62 @@ rm -rf %{buildroot}
 %{_datadir}/cups/model/%{rname}/HP-Color_LaserJet_1500.ppd*
 %{_datadir}/cups/model/%{rname}/HP-Color_LaserJet_1600.ppd*
 %{_datadir}/cups/model/%{rname}/HP-Color_LaserJet_2600n.ppd*
+%{_datadir}/cups/model/%{rname}/HP-Color_LaserJet_CP1215.ppd*
 %{_datadir}/cups/model/%{rname}/HP-LaserJet_1000.ppd*
 %{_datadir}/cups/model/%{rname}/HP-LaserJet_1005.ppd*
 %{_datadir}/cups/model/%{rname}/HP-LaserJet_1018.ppd*
 %{_datadir}/cups/model/%{rname}/HP-LaserJet_1020.ppd*
 %{_datadir}/cups/model/%{rname}/HP-LaserJet_1022.ppd*
 %{_datadir}/cups/model/%{rname}/HP-LaserJet_M1005_MFP.ppd*
-%{_datadir}/cups/model/%{rname}/KonicaMinolta-magicolor_2480_MF.ppd*
-%{_datadir}/cups/model/%{rname}/KonicaMinolta-magicolor_2490_MF.ppd*
-%{_datadir}/cups/model/%{rname}/KonicaMinolta-magicolor_2530_DL.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_M1120_MFP.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_M1319_MFP.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_P1005.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_P1006.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_P1007.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_P1008.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_P1505.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_P2014.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_P2035.ppd*
+%{_datadir}/cups/model/%{rname}/KONICA_MINOLTA-magicolor_2480_MF.ppd*
+%{_datadir}/cups/model/%{rname}/KONICA_MINOLTA-magicolor_2490_MF.ppd*
+%{_datadir}/cups/model/%{rname}/KONICA_MINOLTA-magicolor_2530_DL.ppd*
+%{_datadir}/cups/model/%{rname}/Kyocera-KM-1635.ppd*
+%{_datadir}/cups/model/%{rname}/Kyocera-KM-2035.ppd*
 %{_datadir}/cups/model/%{rname}/Lexmark-C500.ppd.gz
 %{_datadir}/cups/model/%{rname}/Minolta-Color_PageWorks_Pro_L.ppd*
 %{_datadir}/cups/model/%{rname}/Minolta-magicolor_2200_DL.ppd*
 %{_datadir}/cups/model/%{rname}/Minolta-magicolor_2300_DL.ppd*
 %{_datadir}/cups/model/%{rname}/Minolta-magicolor_2430_DL.ppd*
+%{_datadir}/cups/model/%{rname}/Oki-C3100.ppd*
+%{_datadir}/cups/model/%{rname}/Oki-C3200.ppd*
+%{_datadir}/cups/model/%{rname}/Oki-C3300.ppd*
+%{_datadir}/cups/model/%{rname}/Oki-C3400.ppd*
+%{_datadir}/cups/model/%{rname}/Oki-C3530_MFP.ppd*
+%{_datadir}/cups/model/%{rname}/Oki-C5100.ppd*
+%{_datadir}/cups/model/%{rname}/Oki-C5200.ppd*
+%{_datadir}/cups/model/%{rname}/Oki-C5500.ppd*
+%{_datadir}/cups/model/%{rname}/Oki-C5600.ppd*
+%{_datadir}/cups/model/%{rname}/Oki-C5800.ppd*
 %{_datadir}/cups/model/%{rname}/Samsung-CLP-300.ppd*
+%{_datadir}/cups/model/%{rname}/Samsung-CLP-315.ppd*
 %{_datadir}/cups/model/%{rname}/Samsung-CLP-600.ppd*
+%{_datadir}/cups/model/%{rname}/Samsung-CLP-610.ppd*
 %{_datadir}/cups/model/%{rname}/Samsung-CLX-2160.ppd*
 %{_datadir}/cups/model/%{rname}/Samsung-CLX-3160.ppd*
-%{_datadir}/cups/model/%{rname}/Xerox-Phaser-6110.ppd*
-%{_datadir}/cups/model/%{rname}/Xerox-Phaser-6115MFP.ppd*
+%{_datadir}/cups/model/%{rname}/Samsung-CLX-3175.ppd*
+%{_datadir}/cups/model/%{rname}/Xerox-Phaser_6110.ppd*
+%{_datadir}/cups/model/%{rname}/Xerox-Phaser_6115MFP.ppd*
+
+%{_datadir}/foo2zjs/hplj1020_icon.gif
+%{_datadir}/foo2zjs/hplj10xx_gui.tcl
 
 %defattr(0755,root,root,0755)
 %{_bindir}/%{rname}
 %{_bindir}/%{rname}-getweb
 %{_bindir}/%{rname}-wrapper
 %{_bindir}/arm2hpdl
+%{_bindir}/foo2hiperc
+%{_bindir}/foo2hiperc-wrapper
 %{_bindir}/foo2hp
 %{_bindir}/foo2hp2600-wrapper
 %{_bindir}/foo2lava
@@ -231,6 +240,8 @@ rm -rf %{buildroot}
 %{_bindir}/foo2xqx
 %{_bindir}/foo2xqx-wrapper
 %{_bindir}/foo2zjs-pstops
+%{_bindir}/gipddecode
+%{_bindir}/hipercdecode
 %{_bindir}/lavadecode
 %{_bindir}/oakdecode
 %{_bindir}/opldecode
@@ -243,3 +254,5 @@ rm -rf %{buildroot}
 %{_sbindir}/hplj1005
 %{_sbindir}/hplj1018
 %{_sbindir}/hplj1020
+
+
