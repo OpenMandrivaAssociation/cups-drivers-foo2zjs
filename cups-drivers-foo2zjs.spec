@@ -4,7 +4,7 @@
 Summary:	A linux printer driver for ZjStream protocol
 Name:		cups-drivers-%{rname}
 Version:	0.0
-Release:	%mkrel 0.%{snap}.1
+Release:	%mkrel 0.%{snap}.2
 Group:		System/Printing
 License:	GPL
 URL:		http://foo2zjs.rkkda.com/
@@ -102,9 +102,6 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/firmware
 # cleanup
 rm -rf %{buildroot}%{_datadir}/doc/%{rname}
 
-# provided by foomatic-db
-rm %{buildroot}/%{_datadir}/foomatic/db/source/printer/Generic-OAKT_Printer.xml
-
 %clean
 rm -rf %{buildroot}
 
@@ -164,6 +161,25 @@ rm -rf %{buildroot}
 %{_datadir}/foomatic/db/source/opt/*.xml
 %{_datadir}/foomatic/db/source/printer/*.xml
 %{_datadir}/foomatic/db/source/driver/*.xml
+
+# provided by foomatic-db
+%exclude %{_datadir}/foomatic/db/source/printer/Generic-OAKT_Printer.xml
+%exclude %{_datadir}/foomatic/db/source/printer/HP-Color_LaserJet_CP1215.xml
+%exclude %{_datadir}/foomatic/db/source/printer/KONICA_MINOLTA-magicolor_2480_MF.xml
+%exclude %{_datadir}/foomatic/db/source/printer/KONICA_MINOLTA-magicolor_2490_MF.xml
+%exclude %{_datadir}/foomatic/db/source/printer/KONICA_MINOLTA-magicolor_2530_DL.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Kyocera-KM-1635.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Kyocera-KM-2035.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Xerox-Phaser_6110.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Xerox-Phaser_6115MFP.xml
+%exclude %{_datadir}/foomatic/db/source/printer/HP-Color_LaserJet_CP1215.xml
+%exclude %{_datadir}/foomatic/db/source/printer/KONICA_MINOLTA-magicolor_2480_MF.xml
+%exclude %{_datadir}/foomatic/db/source/printer/KONICA_MINOLTA-magicolor_2490_MF.xml
+%exclude %{_datadir}/foomatic/db/source/printer/KONICA_MINOLTA-magicolor_2530_DL.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Kyocera-KM-1635.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Kyocera-KM-2035.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Xerox-Phaser_6110.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Xerox-Phaser_6115MFP.xml
 
 %dir %{_datadir}/cups/model/%{rname}
 %{_datadir}/cups/model/%{rname}/Generic-OAKT_Printer.ppd*
