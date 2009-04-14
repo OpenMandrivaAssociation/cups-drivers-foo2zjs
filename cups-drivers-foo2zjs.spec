@@ -4,7 +4,7 @@
 Summary:	A linux printer driver for ZjStream protocol
 Name:		cups-drivers-%{rname}
 Version:	0.0
-Release:	%mkrel 0.%{snap}.2
+Release:	%mkrel 0.%{snap}.3
 Group:		System/Printing
 License:	GPL
 URL:		http://foo2zjs.rkkda.com/
@@ -13,6 +13,7 @@ Patch0:		foo2zjs-system_icc2ps.diff
 Patch2:		foo2zjs-cflags.diff
 Patch3:		foo2zjs-system_jbig.diff
 Patch4:		foo2zjs-LDFLAGS.diff
+Patch5:		foo2zjs-fix-hotplug-find-globbing.patch
 BuildRequires:	lcms
 BuildRequires:	ghostscript
 BuildRequires:	foomatic-filters
@@ -42,6 +43,7 @@ printers. Please read the README file for a list of supported printers.
 %patch2 -p0
 %patch3 -p0
 %patch4 -p0
+%patch5 -p1
 
 # fix attribs
 chmod 644 COPYING ChangeLog INSTALL INSTALL.usb README
