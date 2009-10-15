@@ -1,10 +1,10 @@
 %define rname foo2zjs
-%define snap 20090122
+%define snap 20091014
 
 Summary:	A linux printer driver for ZjStream protocol
 Name:		cups-drivers-%{rname}
 Version:	0.0
-Release:	%mkrel 0.%{snap}.4
+Release:	%mkrel 0.%{snap}.1
 Group:		System/Printing
 License:	GPL
 URL:		http://foo2zjs.rkkda.com/
@@ -13,7 +13,6 @@ Patch0:		foo2zjs-system_icc2ps.diff
 Patch2:		foo2zjs-cflags.diff
 Patch3:		foo2zjs-system_jbig.diff
 Patch4:		foo2zjs-LDFLAGS.diff
-Patch5:		foo2zjs-fix-hotplug-find-globbing.patch
 BuildRequires:	lcms
 BuildRequires:	ghostscript
 BuildRequires:	foomatic-filters
@@ -43,7 +42,6 @@ printers. Please read the README file for a list of supported printers.
 %patch2 -p0
 %patch3 -p0
 %patch4 -p0
-%patch5 -p1
 
 # fix attribs
 chmod 644 COPYING ChangeLog INSTALL INSTALL.usb README
@@ -104,6 +102,7 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/firmware
 # cleanup
 rm -rf %{buildroot}%{_datadir}/doc/%{rname}
 
+
 %clean
 rm -rf %{buildroot}
 
@@ -138,6 +137,7 @@ rm -rf %{buildroot}
 %{_mandir}/man1/usb_printerid.1*
 %{_mandir}/man1/xqxdecode.1*
 %{_mandir}/man1/zjsdecode.1*
+%{_mandir}/man1/printer-profile.1.*
 
 %dir %{_datadir}/foo2hp
 %dir %{_datadir}/foo2hp/icm
@@ -182,6 +182,33 @@ rm -rf %{buildroot}
 %exclude %{_datadir}/foomatic/db/source/printer/Kyocera-KM-2035.xml
 %exclude %{_datadir}/foomatic/db/source/printer/Xerox-Phaser_6110.xml
 %exclude %{_datadir}/foomatic/db/source/printer/Xerox-Phaser_6115MFP.xml
+# these are provided by foomatic-db-4.0-2.20091014.1mdv2010.0
+%exclude %{_datadir}/foomatic/db/source/printer/Generic-ZjStream_Printer.xml
+%exclude %{_datadir}/foomatic/db/source/printer/HP-LaserJet_1018.xml
+%exclude %{_datadir}/foomatic/db/source/printer/HP-LaserJet_M1120_MFP.xml
+%exclude %{_datadir}/foomatic/db/source/printer/HP-LaserJet_P1005.xml
+%exclude %{_datadir}/foomatic/db/source/printer/HP-LaserJet_P1006.xml
+%exclude %{_datadir}/foomatic/db/source/printer/HP-LaserJet_P1007.xml
+%exclude %{_datadir}/foomatic/db/source/printer/HP-LaserJet_P1008.xml
+%exclude %{_datadir}/foomatic/db/source/printer/HP-LaserJet_P1505.xml
+%exclude %{_datadir}/foomatic/db/source/printer/HP-LaserJet_P2014.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Lexmark-C500.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Minolta-magicolor_2200_DL.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Oki-C3100.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Oki-C3200.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Oki-C3300.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Oki-C3400.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Oki-C3530_MFP.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Oki-C5100.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Oki-C5200.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Oki-C5500.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Oki-C5600.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Oki-C5800.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Samsung-CLP-315.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Samsung-CLP-610.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Samsung-CLX-2160.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Samsung-CLX-3160.xml
+%exclude %{_datadir}/foomatic/db/source/printer/Samsung-CLX-3175.xml
 
 %dir %{_datadir}/cups/model/%{rname}
 %{_datadir}/cups/model/%{rname}/Generic-OAKT_Printer.ppd*
@@ -234,6 +261,11 @@ rm -rf %{buildroot}
 %{_datadir}/cups/model/%{rname}/Samsung-CLX-3175.ppd*
 %{_datadir}/cups/model/%{rname}/Xerox-Phaser_6110.ppd*
 %{_datadir}/cups/model/%{rname}/Xerox-Phaser_6115MFP.ppd*
+%{_datadir}/cups/model/%{rname}/KONICA_MINOLTA-magicolor_1600W.ppd*
+%{_datadir}/cups/model/%{rname}/KONICA_MINOLTA-magicolor_1680MF.ppd*
+%{_datadir}/cups/model/%{rname}/KONICA_MINOLTA-magicolor_1690MF.ppd*
+%{_datadir}/cups/model/%{rname}/KONICA_MINOLTA-magicolor_4690MF.ppd*
+%{_datadir}/cups/model/%{rname}/Samsung-CLP-310.ppd*
 
 %{_datadir}/foo2zjs/hplj1020_icon.gif
 %{_datadir}/foo2zjs/hplj10xx_gui.tcl
@@ -242,6 +274,7 @@ rm -rf %{buildroot}
 %{_bindir}/%{rname}
 %{_bindir}/%{rname}-getweb
 %{_bindir}/%{rname}-wrapper
+%{_bindir}/printer-profile
 %{_bindir}/arm2hpdl
 %{_bindir}/foo2hiperc
 %{_bindir}/foo2hiperc-wrapper
@@ -272,5 +305,4 @@ rm -rf %{buildroot}
 %{_sbindir}/hplj1005
 %{_sbindir}/hplj1018
 %{_sbindir}/hplj1020
-
 
