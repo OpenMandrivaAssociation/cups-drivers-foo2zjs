@@ -102,6 +102,51 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/firmware
 # cleanup
 rm -rf %{buildroot}%{_datadir}/doc/%{rname}
 
+# provided by foomatic-db
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Generic-OAKT_Printer.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/HP-Color_LaserJet_CP1215.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/KONICA_MINOLTA-magicolor_2480_MF.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/KONICA_MINOLTA-magicolor_2490_MF.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/KONICA_MINOLTA-magicolor_2530_DL.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Kyocera-KM-1635.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Kyocera-KM-2035.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Xerox-Phaser_6110.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Xerox-Phaser_6115MFP.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/HP-Color_LaserJet_CP1215.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/KONICA_MINOLTA-magicolor_2480_MF.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/KONICA_MINOLTA-magicolor_2490_MF.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/KONICA_MINOLTA-magicolor_2530_DL.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Kyocera-KM-1635.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Kyocera-KM-2035.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Xerox-Phaser_6110.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Xerox-Phaser_6115MFP.xml
+# these are provided by foomatic-db-4.0-2.20091014.1mdv2010.0
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Generic-ZjStream_Printer.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/HP-LaserJet_1018.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/HP-LaserJet_M1120_MFP.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/HP-LaserJet_P1005.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/HP-LaserJet_P1006.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/HP-LaserJet_P1007.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/HP-LaserJet_P1008.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/HP-LaserJet_P1505.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/HP-LaserJet_P2014.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Lexmark-C500.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Minolta-magicolor_2200_DL.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Oki-C3100.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Oki-C3200.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Oki-C3300.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Oki-C3400.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Oki-C3530_MFP.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Oki-C5100.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Oki-C5200.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Oki-C5500.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Oki-C5600.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Oki-C5800.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLP-315.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLP-610.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLX-2160.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLX-3160.xml
+rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLX-3175.xml
 
 %clean
 rm -rf %{buildroot}
@@ -164,51 +209,6 @@ rm -rf %{buildroot}
 %{_datadir}/foomatic/db/source/printer/*.xml
 %{_datadir}/foomatic/db/source/driver/*.xml
 
-# provided by foomatic-db
-%exclude %{_datadir}/foomatic/db/source/printer/Generic-OAKT_Printer.xml
-%exclude %{_datadir}/foomatic/db/source/printer/HP-Color_LaserJet_CP1215.xml
-%exclude %{_datadir}/foomatic/db/source/printer/KONICA_MINOLTA-magicolor_2480_MF.xml
-%exclude %{_datadir}/foomatic/db/source/printer/KONICA_MINOLTA-magicolor_2490_MF.xml
-%exclude %{_datadir}/foomatic/db/source/printer/KONICA_MINOLTA-magicolor_2530_DL.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Kyocera-KM-1635.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Kyocera-KM-2035.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Xerox-Phaser_6110.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Xerox-Phaser_6115MFP.xml
-%exclude %{_datadir}/foomatic/db/source/printer/HP-Color_LaserJet_CP1215.xml
-%exclude %{_datadir}/foomatic/db/source/printer/KONICA_MINOLTA-magicolor_2480_MF.xml
-%exclude %{_datadir}/foomatic/db/source/printer/KONICA_MINOLTA-magicolor_2490_MF.xml
-%exclude %{_datadir}/foomatic/db/source/printer/KONICA_MINOLTA-magicolor_2530_DL.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Kyocera-KM-1635.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Kyocera-KM-2035.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Xerox-Phaser_6110.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Xerox-Phaser_6115MFP.xml
-# these are provided by foomatic-db-4.0-2.20091014.1mdv2010.0
-%exclude %{_datadir}/foomatic/db/source/printer/Generic-ZjStream_Printer.xml
-%exclude %{_datadir}/foomatic/db/source/printer/HP-LaserJet_1018.xml
-%exclude %{_datadir}/foomatic/db/source/printer/HP-LaserJet_M1120_MFP.xml
-%exclude %{_datadir}/foomatic/db/source/printer/HP-LaserJet_P1005.xml
-%exclude %{_datadir}/foomatic/db/source/printer/HP-LaserJet_P1006.xml
-%exclude %{_datadir}/foomatic/db/source/printer/HP-LaserJet_P1007.xml
-%exclude %{_datadir}/foomatic/db/source/printer/HP-LaserJet_P1008.xml
-%exclude %{_datadir}/foomatic/db/source/printer/HP-LaserJet_P1505.xml
-%exclude %{_datadir}/foomatic/db/source/printer/HP-LaserJet_P2014.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Lexmark-C500.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Minolta-magicolor_2200_DL.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Oki-C3100.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Oki-C3200.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Oki-C3300.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Oki-C3400.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Oki-C3530_MFP.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Oki-C5100.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Oki-C5200.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Oki-C5500.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Oki-C5600.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Oki-C5800.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Samsung-CLP-315.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Samsung-CLP-610.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Samsung-CLX-2160.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Samsung-CLX-3160.xml
-%exclude %{_datadir}/foomatic/db/source/printer/Samsung-CLX-3175.xml
 
 %dir %{_datadir}/cups/model/%{rname}
 %{_datadir}/cups/model/%{rname}/Generic-OAKT_Printer.ppd*
