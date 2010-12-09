@@ -1,10 +1,10 @@
 %define rname foo2zjs
-%define snap 20091014
+%define snap 20101208
 
 Summary:	A linux printer driver for ZjStream protocol
 Name:		cups-drivers-%{rname}
 Version:	0.0
-Release:	%mkrel 0.%{snap}.3
+Release:	%mkrel 0.%{snap}.1
 Group:		System/Printing
 License:	GPL
 URL:		http://foo2zjs.rkkda.com/
@@ -101,6 +101,7 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/firmware
 
 # cleanup
 rm -rf %{buildroot}%{_datadir}/doc/%{rname}
+rm -rf %{buildroot}%{_mandir}/man1/foo2zjs-icc2ps.1*
 
 # provided by foomatic-db
 rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Generic-OAKT_Printer.xml
@@ -171,10 +172,12 @@ rm -rf %{buildroot}
 %{_mandir}/man1/foo2xqx.1*
 %{_mandir}/man1/foo2xqx-wrapper.1*
 %{_mandir}/man1/foo2zjs-pstops.1*
+%{_mandir}/man1/gipddecode.1*
 %{_mandir}/man1/hipercdecode.1*
 %{_mandir}/man1/lavadecode.1*
 %{_mandir}/man1/oakdecode.1*
 %{_mandir}/man1/opldecode.1*
+%{_mandir}/man1/printer-profile.1.*
 %{_mandir}/man1/qpdldecode.1*
 %{_mandir}/man1/%{rname}.1*
 %{_mandir}/man1/%{rname}-wrapper.1*
@@ -182,7 +185,6 @@ rm -rf %{buildroot}
 %{_mandir}/man1/usb_printerid.1*
 %{_mandir}/man1/xqxdecode.1*
 %{_mandir}/man1/zjsdecode.1*
-%{_mandir}/man1/printer-profile.1.*
 
 %dir %{_datadir}/foo2hp
 %dir %{_datadir}/foo2hp/icm
@@ -266,6 +268,20 @@ rm -rf %{buildroot}
 %{_datadir}/cups/model/%{rname}/KONICA_MINOLTA-magicolor_1690MF.ppd*
 %{_datadir}/cups/model/%{rname}/KONICA_MINOLTA-magicolor_4690MF.ppd*
 %{_datadir}/cups/model/%{rname}/Samsung-CLP-310.ppd*
+# added since 20101208, may conflict with foomatic-db later
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_P1505n.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_P2014n.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_P2035n.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_Pro_CP1025nw.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_Pro_P1102.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_Pro_P1102w.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_Pro_P1566.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_Pro_P1606dn.ppd*
+%{_datadir}/cups/model/%{rname}/Oki-C110.ppd*
+%{_datadir}/cups/model/%{rname}/Oki-C5650.ppd*
+%{_datadir}/cups/model/%{rname}/Olivetti-d-Color_P160W.ppd*
+%{_datadir}/cups/model/%{rname}/Samsung-CLP-620.ppd*
+%{_datadir}/cups/model/%{rname}/Xerox-Phaser_6121MFP.ppd*
 
 %{_datadir}/foo2zjs/hplj1020_icon.gif
 %{_datadir}/foo2zjs/hplj10xx_gui.tcl
@@ -305,4 +321,3 @@ rm -rf %{buildroot}
 %{_sbindir}/hplj1005
 %{_sbindir}/hplj1018
 %{_sbindir}/hplj1020
-
