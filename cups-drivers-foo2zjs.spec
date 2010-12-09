@@ -13,7 +13,7 @@ Patch0:		foo2zjs-system_icc2ps.diff
 Patch2:		foo2zjs-cflags.diff
 Patch3:		foo2zjs-system_jbig.diff
 Patch4:		foo2zjs-LDFLAGS.diff
-BuildRequires:	dc
+BuildRequires:	bc
 BuildRequires:	lcms
 BuildRequires:	ghostscript
 BuildRequires:	foomatic-filters
