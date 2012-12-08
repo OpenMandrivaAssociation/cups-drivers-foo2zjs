@@ -4,7 +4,7 @@
 Summary:	A linux printer driver for ZjStream protocol
 Name:		cups-drivers-%{rname}
 Version:	0.0
-Release:	%mkrel 0.%{snap}.2
+Release:	%mkrel 0.%{snap}.4
 Group:		System/Printing
 License:	GPL
 URL:		http://foo2zjs.rkkda.com/
@@ -322,3 +322,115 @@ rm -rf %{buildroot}
 %{_sbindir}/hplj1005
 %{_sbindir}/hplj1018
 %{_sbindir}/hplj1020
+
+
+%changelog
+* Tue May 03 2011 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20101208.2mdv2011.0
++ Revision: 663436
+- mass rebuild
+
+* Thu Dec 09 2010 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20101208.1mdv2011.0
++ Revision: 618205
+- fix typo (duh!)
+- fix deps
+- 20101208
+- rediffed all patches
+
+* Wed Dec 01 2010 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20091014.3mdv2011.0
++ Revision: 604281
+- fix build
+- rebuild
+
+* Sun Mar 14 2010 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20091014.2mdv2010.1
++ Revision: 518840
+- rebuild
+
+* Thu Oct 15 2009 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20091014.1mdv2010.0
++ Revision: 457540
+- new foo2zjs.tar.gz tar ball (20091014)
+- rediffed patches
+- dropped P5 that was applied upstream
+- fix #54598 (foomatic-db conflicts with cups-drivers-foo2zjs)
+
+* Sun Aug 09 2009 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20090122.4mdv2010.0
++ Revision: 413284
+- rebuild
+
+  + Gustavo De Nardin <gustavodn@mandriva.com>
+    - fixed lack of quoting for find command arguments on hotplug script, as
+      reported by Lonnie Borntreger (as of comment 1 on bug #47863)
+
+* Thu Feb 12 2009 Frederik Himpe <fhimpe@mandriva.org> 0.0-0.20090122.2mdv2009.1
++ Revision: 339898
+- Instead of removing XML file in %%install, use %%exclude in file list
+- Exclude some more printer XML files included in foomatic-db
+
+* Wed Feb 11 2009 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20090122.1mdv2009.1
++ Revision: 339559
+- new version (20090122) supports a lot more printers...
+- rediff patches, drop patches
+
+* Mon Feb 09 2009 Frederik Himpe <fhimpe@mandriva.org> 0.0-0.20071109.7mdv2009.1
++ Revision: 338898
+- Don't pacakge Generic-OAKT_Printer.xml which is already included in
+  foomatic-db
+
+* Sat Jan 31 2009 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20071109.6mdv2009.1
++ Revision: 335837
+- rebuilt against new jbigkit major
+
+* Tue Dec 23 2008 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20071109.5mdv2009.1
++ Revision: 318065
+- use %%ldflags
+
+* Wed Sep 24 2008 Tiago Salem <salem@mandriva.com.br> 0.0-0.20071109.4mdv2009.0
++ Revision: 287939
+- disabling hplj10xx.rules. hplj10xx is not working properly when
+  called by udev.
+  The firmware management will be managed by hal_lpadmin.
+- bump release
+
+* Fri Dec 21 2007 Olivier Blin <oblin@mandriva.com> 0.0-0.20071109.3mdv2009.0
++ Revision: 136347
+- restore BuildRoot
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill re-definition of %%buildroot on Pixel's request
+
+* Fri Nov 09 2007 Marcelo Ricardo Leitner <mrl@mandriva.com> 0.0-0.20071109.3mdv2008.1
++ Revision: 107083
+- New upstream: 20071109 Closes: #35424
+- Rediffed system_jbig and system_icc2ps due to the new upstream.
+- Simplified %%files section.
+
+* Sat Sep 22 2007 Marcelo Ricardo Leitner <mrl@mandriva.com> 0.0-0.20070820.3mdv2008.0
++ Revision: 92186
+- Fix triple = in udev rules.
+
+* Wed Sep 19 2007 Marcelo Ricardo Leitner <mrl@mandriva.com> 0.0-0.20070820.2mdv2008.0
++ Revision: 90876
+- Do not use a symlink between /etc/printers and /usr/share/firmware anymore.
+  This fixes the conflict with firmware-tools package.
+- Dropped support for < 2007.0.
+
+* Fri Aug 31 2007 Marcelo Ricardo Leitner <mrl@mandriva.com> 0.0-0.20070820.1mdv2008.0
++ Revision: 76920
+- New upstream: 20070820
+- Added conflicts for foomatic-db < 1:3.0.2-1.20070820.1mdv2008.0
+
+* Thu Aug 30 2007 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20070718.3mdv2008.0
++ Revision: 75325
+- fix deps (pixel)
+
+* Thu Aug 16 2007 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20070718.2mdv2008.0
++ Revision: 64146
+- use the new System/Printing RPM GROUP
+
+* Mon Aug 13 2007 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20070718.1mdv2008.0
++ Revision: 62502
+- Import cups-drivers-foo2zjs
+
+
+
+* Mon Aug 13 2007 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20070718.1mdv2008.0
+- initial Mandriva package
