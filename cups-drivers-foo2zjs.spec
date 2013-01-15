@@ -10,6 +10,7 @@ License:	GPL
 URL:		http://foo2zjs.rkkda.com/
 Source0:	http://foo2zjs.rkkda.com/foo2zjs.tar.gz
 Patch0:		foo2zjs-system_icc2ps.diff
+Patch1:		foo2zjs-makeinstall.patch
 Patch2:		foo2zjs-cflags.diff
 Patch3:		foo2zjs-system_jbig.diff
 Patch4:		foo2zjs-LDFLAGS.diff
@@ -40,6 +41,7 @@ printers. Please read the README file for a list of supported printers.
 
 %setup -q -n %{rname}
 %patch0 -p1
+%patch1 -p1 -b .mi~
 %patch2 -p0
 %patch3 -p0
 %patch4 -p0
@@ -156,6 +158,8 @@ rm -rf %{buildroot}
 %files
 %defattr(0644,root,root,0755)
 %doc COPYING ChangeLog INSTALL INSTALL.usb README manual.pdf
+%_bindir/command2foo2lava-pjl
+%_prefix/lib/cups/filter/command2foo2lava-pjl
 #%{_sysconfdir}/udev/rules.d/70-hplj10xx.rules
 %{_mandir}/man1/arm2hpdl.1*
 %{_mandir}/man1/foo2hiperc.1*
