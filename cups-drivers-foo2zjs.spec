@@ -1,36 +1,33 @@
-%define rname foo2zjs
-%define snap 20101208
+%define rname	foo2zjs
+%define snap	20101208
 
 Summary:	A linux printer driver for ZjStream protocol
 Name:		cups-drivers-%{rname}
 Version:	0.0
-Release:	%mkrel 0.%{snap}.5
+Release:	0.%{snap}.5
 Group:		System/Printing
-License:	GPL
-URL:		http://foo2zjs.rkkda.com/
+License:	GPLv2
+Url:		http://foo2zjs.rkkda.com/
 Source0:	http://foo2zjs.rkkda.com/foo2zjs.tar.gz
 Patch0:		foo2zjs-system_icc2ps.diff
 Patch1:		foo2zjs-makeinstall.patch
 Patch2:		foo2zjs-cflags.diff
 Patch3:		foo2zjs-system_jbig.diff
 Patch4:		foo2zjs-LDFLAGS.diff
+
 BuildRequires:	bc
-BuildRequires:	lcms
-BuildRequires:	ghostscript
 BuildRequires:	foomatic-filters
-BuildRequires:	jbig-devel
+BuildRequires:	ghostscript
 BuildRequires:  groff-base
-Requires:	lcms
-Requires:	wget
+BuildRequires:	lcms
+BuildRequires:	jbig-devel
 Requires:	foomatic-db-engine
-# psutils, unzip, and mscompress needed by the foo2zjs driver
-Requires:	psutils, unzip
+Requires:	lcms
 Requires:	mscompress
-Conflicts:	cups-drivers = 2007
-Conflicts:	printer-utils = 2007
-Conflicts:	printer-filters = 2007
-Conflicts:	foomatic-db < 1:3.0.2-1.20070820.1mdv2008.0
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+Requires:	wget
+# psutils, unzip, and mscompress needed by the foo2zjs driver
+Requires:	psutils
+Requires:	unzip
 
 %description
 foo2zjs is an open source printer driver for printers that use the Zenographics
@@ -39,8 +36,7 @@ ZjStream wire protocol for their print data, such as the Minolta/QMS magicolor
 printers. Please read the README file for a list of supported printers.
 
 %prep
-
-%setup -q -n %{rname}
+%setup -qn %{rname}
 %patch0 -p1
 %patch1 -p1 -b .mi~
 %patch2 -p0
@@ -60,8 +56,6 @@ make CFLAGS="%{optflags}" LDFLAGS="%{ldflags}"
 #perl -p -i -e 's:(KERNEL|BUS|SYSFS.*?)=([^=]):$1==$2:g;s{SYMLINK=}{SYMLINK+=}g;s{(?:NAME|MODE)=.*?,\s*}{}g;s:===:==:g' hplj10xx.rules
 
 %install
-rm -rf %{buildroot}
-
 install -d %{buildroot}%{_bindir}
 install -d %{buildroot}%{_sbindir}
 install -d %{buildroot}%{_datadir}/foomatic/db/source/{driver,opt,printer}
@@ -69,19 +63,19 @@ install -d %{buildroot}%{_datadir}/cups/model/%{rname}
 #install -d %{buildroot}%{_sysconfdir}/udev/rules.d
 
 make install \
-    DESTDIR="%{buildroot}" \
-    PREFIX=%{buildroot}%{_prefix} \
-    BIN=%{buildroot}%{_bindir} \
-    SHAREZJS=%{buildroot}%{_datadir}/%{rname} \
-    SHAREOAK=%{buildroot}%{_datadir}/foo2oak \
-    SHAREHP=%{buildroot}%{_datadir}/foo2hp \
-    SHAREXQX=%{buildroot}%{_datadir}/foo2xqx \
-    SHARELAVA=%{buildroot}%{_datadir}/foo2lava \
-    SHAREQPDL=%{buildroot}%{_datadir}/foo2qpdl \
-    MANDIR=%{buildroot}%{_mandir} \
-    DOCDIR=%{buildroot}%{_datadir}/doc/%{rname}/ \
-    FOODB=%{buildroot}%{_datadir}/foomatic/db/source \
-    MODEL=%{buildroot}%{_datadir}/cups/model/%{rname}
+	DESTDIR="%{buildroot}" \
+	PREFIX=%{buildroot}%{_prefix} \
+	BIN=%{buildroot}%{_bindir} \
+	SHAREZJS=%{buildroot}%{_datadir}/%{rname} \
+	SHAREOAK=%{buildroot}%{_datadir}/foo2oak \
+	SHAREHP=%{buildroot}%{_datadir}/foo2hp \
+	SHAREXQX=%{buildroot}%{_datadir}/foo2xqx \
+	SHARELAVA=%{buildroot}%{_datadir}/foo2lava \
+	SHAREQPDL=%{buildroot}%{_datadir}/foo2qpdl \
+	MANDIR=%{buildroot}%{_mandir} \
+	DOCDIR=%{buildroot}%{_datadir}/doc/%{rname}/ \
+	FOODB=%{buildroot}%{_datadir}/foomatic/db/source \
+	MODEL=%{buildroot}%{_datadir}/cups/model/%{rname}
 
 # bork, bork, bork
 mv %{buildroot}/bin/usb_printerid %{buildroot}%{_bindir}/
@@ -91,8 +85,8 @@ install -m0755 getweb %{buildroot}%{_bindir}/%{rname}-getweb
 mv %{buildroot}%{_bindir}/usb_printerid %{buildroot}%{_sbindir}/usb_printerid
 
 install -m0755 hplj1000 %{buildroot}%{_sbindir}/
-perl -p -i -e 's:\./(getweb):%{rname}-$1:g' %{buildroot}%{_sbindir}/hplj1000
-perl -p -i -e 's:/bin(/usb_printerid):%{_sbindir}$1:g' %{buildroot}%{_sbindir}/hplj1000
+sed -i -e 's:\./(getweb):%{rname}-$1:g' %{buildroot}%{_sbindir}/hplj1000
+sed -i -e 's:/bin(/usb_printerid):%{_sbindir}$1:g' %{buildroot}%{_sbindir}/hplj1000
 
 ln -s hplj1000 %{buildroot}%{_sbindir}/hplj1005
 ln -s hplj1000 %{buildroot}%{_sbindir}/hplj1018
@@ -153,14 +147,10 @@ rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLX-2160.xml
 rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLX-3160.xml
 rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLX-3175.xml
 
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(0644,root,root,0755)
 %doc COPYING ChangeLog INSTALL INSTALL.usb README manual.pdf
-%_bindir/command2foo2lava-pjl
-%_prefix/lib/cups/filter/command2foo2lava-pjl
+%{_bindir}/command2foo2lava-pjl
+%{_prefix}/lib/cups/filter/command2foo2lava-pjl
 #%{_sysconfdir}/udev/rules.d/70-hplj10xx.rules
 %{_mandir}/man1/arm2hpdl.1*
 %{_mandir}/man1/foo2hiperc.1*
@@ -216,7 +206,6 @@ rm -rf %{buildroot}
 %{_datadir}/foomatic/db/source/opt/*.xml
 %{_datadir}/foomatic/db/source/printer/*.xml
 %{_datadir}/foomatic/db/source/driver/*.xml
-
 
 %dir %{_datadir}/cups/model/%{rname}
 %{_datadir}/cups/model/%{rname}/Generic-OAKT_Printer.ppd*
@@ -292,7 +281,6 @@ rm -rf %{buildroot}
 %{_datadir}/foo2zjs/hplj1020_icon.gif
 %{_datadir}/foo2zjs/hplj10xx_gui.tcl
 
-%defattr(0755,root,root,0755)
 %{_bindir}/%{rname}
 %{_bindir}/%{rname}-getweb
 %{_bindir}/%{rname}-wrapper
@@ -328,114 +316,3 @@ rm -rf %{buildroot}
 %{_sbindir}/hplj1018
 %{_sbindir}/hplj1020
 
-
-%changelog
-* Tue May 03 2011 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20101208.2mdv2011.0
-+ Revision: 663436
-- mass rebuild
-
-* Thu Dec 09 2010 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20101208.1mdv2011.0
-+ Revision: 618205
-- fix typo (duh!)
-- fix deps
-- 20101208
-- rediffed all patches
-
-* Wed Dec 01 2010 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20091014.3mdv2011.0
-+ Revision: 604281
-- fix build
-- rebuild
-
-* Sun Mar 14 2010 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20091014.2mdv2010.1
-+ Revision: 518840
-- rebuild
-
-* Thu Oct 15 2009 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20091014.1mdv2010.0
-+ Revision: 457540
-- new foo2zjs.tar.gz tar ball (20091014)
-- rediffed patches
-- dropped P5 that was applied upstream
-- fix #54598 (foomatic-db conflicts with cups-drivers-foo2zjs)
-
-* Sun Aug 09 2009 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20090122.4mdv2010.0
-+ Revision: 413284
-- rebuild
-
-  + Gustavo De Nardin <gustavodn@mandriva.com>
-    - fixed lack of quoting for find command arguments on hotplug script, as
-      reported by Lonnie Borntreger (as of comment 1 on bug #47863)
-
-* Thu Feb 12 2009 Frederik Himpe <fhimpe@mandriva.org> 0.0-0.20090122.2mdv2009.1
-+ Revision: 339898
-- Instead of removing XML file in %%install, use %%exclude in file list
-- Exclude some more printer XML files included in foomatic-db
-
-* Wed Feb 11 2009 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20090122.1mdv2009.1
-+ Revision: 339559
-- new version (20090122) supports a lot more printers...
-- rediff patches, drop patches
-
-* Mon Feb 09 2009 Frederik Himpe <fhimpe@mandriva.org> 0.0-0.20071109.7mdv2009.1
-+ Revision: 338898
-- Don't pacakge Generic-OAKT_Printer.xml which is already included in
-  foomatic-db
-
-* Sat Jan 31 2009 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20071109.6mdv2009.1
-+ Revision: 335837
-- rebuilt against new jbigkit major
-
-* Tue Dec 23 2008 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20071109.5mdv2009.1
-+ Revision: 318065
-- use %%ldflags
-
-* Wed Sep 24 2008 Tiago Salem <salem@mandriva.com.br> 0.0-0.20071109.4mdv2009.0
-+ Revision: 287939
-- disabling hplj10xx.rules. hplj10xx is not working properly when
-  called by udev.
-  The firmware management will be managed by hal_lpadmin.
-- bump release
-
-* Fri Dec 21 2007 Olivier Blin <oblin@mandriva.com> 0.0-0.20071109.3mdv2009.0
-+ Revision: 136347
-- restore BuildRoot
-
-  + Thierry Vignaud <tv@mandriva.org>
-    - kill re-definition of %%buildroot on Pixel's request
-
-* Fri Nov 09 2007 Marcelo Ricardo Leitner <mrl@mandriva.com> 0.0-0.20071109.3mdv2008.1
-+ Revision: 107083
-- New upstream: 20071109 Closes: #35424
-- Rediffed system_jbig and system_icc2ps due to the new upstream.
-- Simplified %%files section.
-
-* Sat Sep 22 2007 Marcelo Ricardo Leitner <mrl@mandriva.com> 0.0-0.20070820.3mdv2008.0
-+ Revision: 92186
-- Fix triple = in udev rules.
-
-* Wed Sep 19 2007 Marcelo Ricardo Leitner <mrl@mandriva.com> 0.0-0.20070820.2mdv2008.0
-+ Revision: 90876
-- Do not use a symlink between /etc/printers and /usr/share/firmware anymore.
-  This fixes the conflict with firmware-tools package.
-- Dropped support for < 2007.0.
-
-* Fri Aug 31 2007 Marcelo Ricardo Leitner <mrl@mandriva.com> 0.0-0.20070820.1mdv2008.0
-+ Revision: 76920
-- New upstream: 20070820
-- Added conflicts for foomatic-db < 1:3.0.2-1.20070820.1mdv2008.0
-
-* Thu Aug 30 2007 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20070718.3mdv2008.0
-+ Revision: 75325
-- fix deps (pixel)
-
-* Thu Aug 16 2007 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20070718.2mdv2008.0
-+ Revision: 64146
-- use the new System/Printing RPM GROUP
-
-* Mon Aug 13 2007 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20070718.1mdv2008.0
-+ Revision: 62502
-- Import cups-drivers-foo2zjs
-
-
-
-* Mon Aug 13 2007 Oden Eriksson <oeriksson@mandriva.com> 0.0-0.20070718.1mdv2008.0
-- initial Mandriva package
