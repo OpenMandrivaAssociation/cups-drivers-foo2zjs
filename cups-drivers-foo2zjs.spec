@@ -149,8 +149,8 @@ rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLX-3175.xml
 
 %files
 %doc COPYING ChangeLog INSTALL INSTALL.usb README
-%{_bindir}/command2foo2lava-pjl
-%{_prefix}/lib/cups/filter/command2foo2lava-pjl
+#%{_bindir}/command2foo2lava-pjl
+#%{_prefix}/lib/cups/filter/command2foo2lava-pjl
 #%{_sysconfdir}/udev/rules.d/70-hplj10xx.rules
 %{_mandir}/man1/arm2hpdl.1*
 %{_mandir}/man1/foo2hiperc.1*
