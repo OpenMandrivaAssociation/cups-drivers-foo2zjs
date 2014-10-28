@@ -18,6 +18,7 @@ Patch4:		foo2zjs-LDFLAGS.diff
 BuildRequires:	bc
 BuildRequires:	foomatic-filters
 BuildRequires:	cups-filters-devel
+BuildRequires:	cups-filters
 BuildRequires:	ghostscript
 BuildRequires:  groff-base
 BuildRequires:	lcms
