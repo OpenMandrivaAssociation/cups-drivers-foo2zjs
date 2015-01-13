@@ -4,7 +4,7 @@
 Summary:	A linux printer driver for ZjStream protocol
 Name:		cups-drivers-%{rname}
 Version:	0.0
-Release:	0.%{snap}.6
+Release:	0.%{snap}.7
 Group:		System/Printing
 License:	GPLv2
 Url:		http://foo2zjs.rkkda.com/
@@ -21,10 +21,8 @@ BuildRequires:	cups-filters-devel
 BuildRequires:	cups-filters
 BuildRequires:	ghostscript
 BuildRequires:  groff-base
-BuildRequires:	lcms
 BuildRequires:	jbig-devel
 Requires:	foomatic-db-engine
-Requires:	lcms
 Requires:	mscompress
 Requires:	wget
 # psutils, unzip, and mscompress needed by the foo2zjs driver
