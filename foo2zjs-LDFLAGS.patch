@@ -1,14 +1,15 @@
---- Makefile	2010-12-09 14:59:59.003837780 +0100
-+++ Makefile.oden	2010-12-09 15:00:10.434869445 +0100
-@@ -265,6 +265,7 @@
- # Compiler flags
- CFLAGS += -Wall
+diff -Naur foo2zjs/Makefile foo2zjs.tpg/Makefile
+--- foo2zjs/Makefile	2015-04-29 06:38:08.000000000 +0000
++++ foo2zjs.tpg/Makefile	2015-04-29 06:40:30.561601675 +0000
+@@ -283,6 +283,7 @@
+ #CFLAGS +=	-O2 -Wall -Wno-unused-but-set-variable
+ CFLAGS +=	-O2
  #CFLAGS +=	-g
-+LDFLAGS=
++LDFLAGS +=
  
  #
  # Rules to create test documents
-@@ -402,29 +403,29 @@
+@@ -440,32 +441,32 @@
  
  
  foo2zjs: foo2zjs.o $(LIBJBG)
@@ -45,58 +46,66 @@
 -	$(CC) $(CFLAGS) -o $@ foo2hiperc.o $(LIBJBG)
 +	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ foo2hiperc.o $(LIBJBG)
  
+ foo2hbpl2: foo2hbpl2.o $(LIBJBG)
+-	$(CC) $(CFLAGS) -o $@ foo2hbpl2.o $(LIBJBG)
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ foo2hbpl2.o $(LIBJBG)
+ 
  
  foo2zjs-wrapper: foo2zjs-wrapper.in Makefile
-@@ -484,37 +485,37 @@
- 	chmod 555 $@
+@@ -542,40 +543,40 @@
+ endif
  
  ok: ok.o $(LIBJBG)
 -	$(CC) $(CFLAGS) ok.o $(LIBJBG) -o $@
 +	$(CC) $(CFLAGS) $(LDFLAGS) ok.o $(LIBJBG) -o $@
  
- zjsdecode: zjsdecode.o $(LIBJBG)
--	$(CC) $(CFLAGS) zjsdecode.o $(LIBJBG) -o $@
-+	$(CC) $(CFLAGS) $(LDFLAGS) zjsdecode.o $(LIBJBG) -o $@
+ gipddecode: gipddecode.o $(LIBJBG)
+-	$(CC) $(CFLAGS) gipddecode.o $(LIBJBG) -o $@
++	$(CC) $(CFLAGS) $(LDFLAGS) gipddecode.o $(LIBJBG) -o $@
+ 
+ hbpldecode: hbpldecode.o $(LIBJBG)
+-	$(CC) $(CFLAGS) hbpldecode.o $(LIBJBG) -o $@
++	$(CC) $(CFLAGS) $(LDFLAGS) hbpldecode.o $(LIBJBG) -o $@
  
  hipercdecode: hipercdecode.o $(LIBJBG)
 -	$(CC) $(CFLAGS) hipercdecode.o $(LIBJBG) -o $@
 +	$(CC) $(CFLAGS) $(LDFLAGS) hipercdecode.o $(LIBJBG) -o $@
  
- splcdecode: splcdecode.o $(LIBJBG)
--	$(CC) $(CFLAGS) splcdecode.o $(LIBJBG) -lz -o $@
-+	$(CC) $(CFLAGS) $(LDFLAGS) splcdecode.o $(LIBJBG) -lz -o $@
- 
- xqxdecode: xqxdecode.o $(LIBJBG)
--	$(CC) $(CFLAGS) xqxdecode.o $(LIBJBG) -o $@
-+	$(CC) $(CFLAGS) $(LDFLAGS) xqxdecode.o $(LIBJBG) -o $@
- 
  lavadecode: lavadecode.o $(LIBJBG)
 -	$(CC) $(CFLAGS) lavadecode.o $(LIBJBG) -o $@
 +	$(CC) $(CFLAGS) $(LDFLAGS) lavadecode.o $(LIBJBG) -o $@
- 
- qpdldecode: qpdldecode.o $(LIBJBG)
--	$(CC) $(CFLAGS) qpdldecode.o $(LIBJBG) -o $@
-+	$(CC) $(CFLAGS) $(LDFLAGS) qpdldecode.o $(LIBJBG) -o $@
- 
- opldecode: opldecode.o $(LIBJBG)
--	$(CC) $(CFLAGS) -g opldecode.o $(LIBJBG) -o $@
-+	$(CC) $(CFLAGS) $(LDFLAGS) -g opldecode.o $(LIBJBG) -o $@
  
  oakdecode: oakdecode.o $(LIBJBG)
 -	$(CC) $(CFLAGS) -g oakdecode.o $(LIBJBG) -o $@
 +	$(CC) $(CFLAGS) $(LDFLAGS) -g oakdecode.o $(LIBJBG) -o $@
  
+ opldecode: opldecode.o $(LIBJBG)
+-	$(CC) $(CFLAGS) -g opldecode.o $(LIBJBG) -o $@
++	$(CC) $(CFLAGS) $(LDFLAGS) -g opldecode.o $(LIBJBG) -o $@
+ 
+ qpdldecode: qpdldecode.o $(LIBJBG)
+-	$(CC) $(CFLAGS) qpdldecode.o $(LIBJBG) -o $@
++	$(CC) $(CFLAGS) $(LDFLAGS) qpdldecode.o $(LIBJBG) -o $@
+ 
+ splcdecode: splcdecode.o $(LIBJBG)
+-	$(CC) $(CFLAGS) splcdecode.o $(LIBJBG) -lz -o $@
++	$(CC) $(CFLAGS) $(LDFLAGS) splcdecode.o $(LIBJBG) -lz -o $@
+ 
  slxdecode: slxdecode.o $(LIBJBG)
 -	$(CC) $(CFLAGS) slxdecode.o $(LIBJBG) -o $@
 +	$(CC) $(CFLAGS) $(LDFLAGS) slxdecode.o $(LIBJBG) -o $@
  
- gipddecode: gipddecode.o $(LIBJBG)
--	$(CC) $(CFLAGS) gipddecode.o $(LIBJBG) -o $@
-+	$(CC) $(CFLAGS) $(LDFLAGS) gipddecode.o $(LIBJBG) -o $@
+ xqxdecode: xqxdecode.o $(LIBJBG)
+-	$(CC) $(CFLAGS) xqxdecode.o $(LIBJBG) -o $@
++	$(CC) $(CFLAGS) $(LDFLAGS) xqxdecode.o $(LIBJBG) -o $@
+ 
+ zjsdecode: zjsdecode.o $(LIBJBG)
+-	$(CC) $(CFLAGS) zjsdecode.o $(LIBJBG) -o $@
++	$(CC) $(CFLAGS) $(LDFLAGS) zjsdecode.o $(LIBJBG) -o $@
  
  command2foo2lava-pjl: command2foo2lava-pjl.o
  	$(CC) $(CFLAGS) -L/usr/local/lib command2foo2lava-pjl.o -lcups -o $@
-@@ -1608,7 +1609,7 @@
+@@ -1848,7 +1849,7 @@
  misc: pksm2bitcmyk phorum-logo.gif
  
  pksm2bitcmyk: pksm2bitcmyk.c

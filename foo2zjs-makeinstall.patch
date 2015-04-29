@@ -1,6 +1,7 @@
---- foo2zjs/Makefile.bero	2013-01-15 19:10:38.386732166 +0100
-+++ foo2zjs/Makefile	2013-01-15 19:11:06.077398457 +0100
-@@ -888,7 +888,8 @@ install-hotplug-prog:
+diff -Naur foo2zjs/Makefile foo2zjs.tpg/Makefile
+--- foo2zjs/Makefile	2015-04-29 06:22:03.000000000 +0000
++++ foo2zjs.tpg/Makefile	2015-04-29 06:26:33.417817072 +0000
+@@ -1018,7 +1018,8 @@
  
  install-filter:
  	if [ "$(CUPS_SERVERBIN)" != "" ]; then \
@@ -9,4 +10,4 @@
 +	    ln -sf ../../../../command2foo2lava-pjl $(DESTDIR)/$(CUPS_SERVERBIN)/filter/; \
  	fi
  
- cups:	FRC
+ CUPSDCONF=/etc/cups/cupsd.conf

@@ -9,11 +9,11 @@ Group:		System/Printing
 License:	GPLv2
 Url:		http://foo2zjs.rkkda.com/
 Source0:	http://foo2zjs.rkkda.com/foo2zjs.tar.gz
-Patch0:		foo2zjs-system_icc2ps.diff
+Patch0:		foo2zjs-system_icc2ps.patch
 Patch1:		foo2zjs-makeinstall.patch
-Patch2:		foo2zjs-cflags.diff
-Patch3:		foo2zjs-system_jbig.diff
-Patch4:		foo2zjs-LDFLAGS.diff
+Patch2:		foo2zjs-cflags.patch
+Patch3:		foo2zjs-system_jbig.patch
+Patch4:		foo2zjs-LDFLAGS.patch
 
 BuildRequires:	bc
 BuildRequires:	foomatic-filters
@@ -37,11 +37,7 @@ printers. Please read the README file for a list of supported printers.
 
 %prep
 %setup -qn %{rname}
-%patch0 -p1
-%patch1 -p1 -b .mi~
-%patch2 -p0
-%patch3 -p0
-%patch4 -p0
+%apply_patches
 
 # fix attribs
 chmod 644 COPYING ChangeLog INSTALL INSTALL.usb README

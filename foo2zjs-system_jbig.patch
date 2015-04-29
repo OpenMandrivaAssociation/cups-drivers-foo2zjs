@@ -1,6 +1,7 @@
---- Makefile	2010-12-09 14:58:26.878875725 +0100
-+++ Makefile.oden	2010-12-09 14:58:42.804900739 +0100
-@@ -128,10 +128,6 @@
+diff -Naur foo2zjs/Makefile foo2zjs.tpg/Makefile
+--- foo2zjs/Makefile	2015-04-29 06:27:27.000000000 +0000
++++ foo2zjs.tpg/Makefile	2015-04-29 06:28:53.301642789 +0000
+@@ -127,10 +127,6 @@
  		Makefile \
  		foo2zjs.c \
  		foo2zjs.1in \
@@ -11,7 +12,7 @@
  		zjsdecode.c \
  		zjsdecode.1in \
  		zjs.h \
-@@ -259,7 +255,7 @@
+@@ -276,7 +272,7 @@
  MANPAGES+=	gipddecode.1
  MANPAGES+=	foo2zjs-pstops.1 arm2hpdl.1 usb_printerid.1
  MANPAGES+=	printer-profile.1
