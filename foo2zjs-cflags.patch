@@ -1,0 +1,12 @@
+diff -Naur foo2zjs/Makefile foo2zjs.tpg/Makefile
+--- foo2zjs/Makefile	2015-04-29 06:26:33.000000000 +0000
++++ foo2zjs.tpg/Makefile	2015-04-29 06:27:27.139286016 +0000
+@@ -285,7 +285,7 @@
+ 
+ # Compiler flags
+ #CFLAGS +=	-O2 -Wall -Wno-unused-but-set-variable
+-CFLAGS +=	-O2 -Wall 
++CFLAGS +=	-O2
+ #CFLAGS +=	-g
+ 
+ #

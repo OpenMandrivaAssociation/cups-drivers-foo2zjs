@@ -1,0 +1,303 @@
+diff -Naur foo2zjs/Makefile foo2zjs.tpg/Makefile
+--- foo2zjs/Makefile	2015-02-12 00:21:54.000000000 +0000
++++ foo2zjs.tpg/Makefile	2015-04-29 06:22:03.754449895 +0000
+@@ -190,13 +190,6 @@
+ 		foomatic-db/*/*.xml \
+ 		foomatic-test \
+ 		getweb.in \
+-		icc2ps/*.[ch] \
+-		icc2ps/*.1in \
+-		icc2ps/Makefile \
+-		icc2ps/AUTHORS \
+-		icc2ps/COPYING \
+-		icc2ps/README \
+-		icc2ps/README.foo2zjs \
+ 		osx-hotplug/Makefile \
+ 		osx-hotplug/*.m \
+ 		osx-hotplug/*.1in \
+@@ -378,7 +371,7 @@
+ # The usual build rules
+ #
+ all:	all-test $(PROGS) $(BINPROGS) $(SHELLS) getweb \
+-	all-icc2ps all-osx-hotplug man doc \
++	all-osx-hotplug man doc \
+ 	all-done
+ 
+ all-test:
+@@ -547,9 +540,6 @@
+ 	    -e 's@^PREFIX=.*@PREFIX=$(PREFIX)@' || (rm -f $@ && exit 1)
+ 	chmod 555 $@
+ 
+-all-icc2ps:
+-	cd icc2ps; $(MAKE) all
+-
+ all-osx-hotplug:
+ ifeq ($(UNAME),Darwin)
+ 	cd osx-hotplug; $(MAKE) all
+@@ -600,7 +590,7 @@
+ #
+ # Installation rules
+ #
+-install: all install-test install-prog install-icc2ps install-osx-hotplug \
++install: all install-test install-prog install-osx-hotplug \
+ 	    install-extra install-crd install-foo install-ppd \
+ 	    install-gui install-desktop install-filter \
+ 	    install-man install-doc
+@@ -712,12 +702,6 @@
+ 	    foomatic-combo-xml -O >overview.xml; \
+ 	fi
+ 
+-install-icc2ps:
+-	#
+-	# Install ICM to Postscript file conversion utility
+-	#
+-	cd icc2ps; $(MAKE) PREFIX=$(PREFIX) install
+-
+ install-osx-hotplug:
+ ifeq ($(UNAME),Darwin)
+ 	#
+@@ -1134,7 +1118,6 @@
+ 	-rm -f $(MANDIR)/man1/foo2hbpl*.1 $(MANDIR)/man1/hbpldecode.1
+ 	-rm -f $(MANDIR)/man1/gipddecode.1
+ 	-rm -f $(MANDIR)/man1/arm2hpdl.1 $(MANDIR)/man1/usb_printerid.1
+-	-rm -f $(MANDIR)/man1/foo2zjs-icc2ps.1
+ 	-rm -rf /usr/share/foo2zjs/
+ 	-rm -rf /usr/share/foo2hp/
+ 	-rm -rf /usr/share/foo2oak/
+@@ -1159,7 +1142,6 @@
+ 	-rm -f /usr/bin/hbpldecode
+ 	-rm -f /usr/bin/opldecode
+ 	-rm -f /usr/bin/rodecode
+-	-rm -f /usr/bin/foo2zjs-icc2ps
+ 	-rm -f /usr/bin/foo2zjs-pstops
+ 	-rm -f /usr/bin/command2foo2lava-pjl
+ 	-rm -f /usr/lib/cups/filter/command2foo2lava-pjl
+@@ -1202,7 +1184,6 @@
+ 	-rm -f *.zjs *.zm *.zc *.zc? *.zc?? *.oak *.pbm *.pksm *.cmyk
+ 	-rm -f pksm2bitcmyk
+ 	-rm -f *.icm.*.ps
+-	cd icc2ps; $(MAKE) $@
+ 	cd osx-hotplug; $(MAKE) $@
+ 
+ #
+@@ -1352,7 +1333,7 @@
+ #
+ #	icc2ps regression tests
+ #
+-ICC2PS=./icc2ps/foo2zjs-icc2ps
++ICC2PS=./icc2ps/icc2ps
+ icctest:
+ 	for g in *.icm; do \
+ 	    for i in 0 1 2 3; do \
+@@ -1542,7 +1523,6 @@
+ manual.pdf: $(MANPAGES) icc2ps/foo2zjs-icc2ps.1 osx-hotplug/osx-hplj-hotplug.1
+ 	-$(GROFF) -t -man \
+ 	    `ls $(MANPAGES) \
+-		icc2ps/foo2zjs-icc2ps.1 \
+ 		osx-hotplug/osx-hplj-hotplug.1 \
+ 		| sort` \
+ 	    | ps2pdf - $@
+diff -Naur foo2zjs/foo2hbpl2-wrapper.1in foo2zjs.tpg/foo2hbpl2-wrapper.1in
+--- foo2zjs/foo2hbpl2-wrapper.1in	2014-09-25 14:34:57.000000000 +0000
++++ foo2zjs.tpg/foo2hbpl2-wrapper.1in	2015-04-29 06:18:08.746023920 +0000
+@@ -178,7 +178,7 @@
+ .TP
+ .BI \-G\0 profile.icm
+ Convert \fIprofile.icm\fP to a Postscript color rendering
+-dictionary (CRD) using \fBfoo2zjs-icc2ps\fP and
++dictionary (CRD) using \fBicc2ps\fP and
+ adjust the printer colors by using the Postscript \fBsetcolorrendering\fP
+ operator.  (WORK IN PROGRESS).
+ .TP
+diff -Naur foo2zjs/foo2hbpl2-wrapper.in foo2zjs.tpg/foo2hbpl2-wrapper.in
+--- foo2zjs/foo2hbpl2-wrapper.in	2014-09-25 14:36:32.000000000 +0000
++++ foo2zjs.tpg/foo2hbpl2-wrapper.in	2015-04-29 06:18:03.305875331 +0000
+@@ -517,7 +517,7 @@
+     #
+     # Create a Postscript CRD
+     #
+-    ICC2PS=$PREFIX/bin/foo2zjs-icc2ps
++    ICC2PS=$PREFIX/bin/icc2ps
+     if [ -x $ICC2PS ]; then
+ 	case "$GAMMAFILE" in
+ 	none | none.icm | */none.icm)
+diff -Naur foo2zjs/foo2hiperc-wrapper.1in foo2zjs.tpg/foo2hiperc-wrapper.1in
+--- foo2zjs/foo2hiperc-wrapper.1in	2013-12-01 20:23:50.000000000 +0000
++++ foo2zjs.tpg/foo2hiperc-wrapper.1in	2015-04-29 06:18:08.747023947 +0000
+@@ -150,7 +150,7 @@
+ .TP
+ .BI \-G\0 profile.icm
+ Convert \fIprofile.icm\fP to a Postscript color rendering
+-dictionary (CRD) using \fBfoo2zjs-icc2ps\fP and
++dictionary (CRD) using \fBicc2ps\fP and
+ adjust the printer colors by using the Postscript \fBsetcolorrendering\fP
+ operator.  (WORK IN PROGRESS).
+ .TP
+diff -Naur foo2zjs/foo2hiperc-wrapper.in foo2zjs.tpg/foo2hiperc-wrapper.in
+--- foo2zjs/foo2hiperc-wrapper.in	2013-12-01 20:25:17.000000000 +0000
++++ foo2zjs.tpg/foo2hiperc-wrapper.in	2015-04-29 06:18:03.307875385 +0000
+@@ -533,7 +533,7 @@
+     #
+     # Create a Postscript CRD
+     #
+-    ICC2PS=$PREFIX/bin/foo2zjs-icc2ps
++    ICC2PS=$PREFIX/bin/icc2ps
+     if [ -x $ICC2PS ]; then
+ 	case "$GAMMAFILE" in
+ 	none | none.icm | */none.icm)
+diff -Naur foo2zjs/foo2hp2600-wrapper.1in foo2zjs.tpg/foo2hp2600-wrapper.1in
+--- foo2zjs/foo2hp2600-wrapper.1in	2013-06-18 09:46:02.000000000 +0000
++++ foo2zjs.tpg/foo2hp2600-wrapper.1in	2015-04-29 06:18:08.748023975 +0000
+@@ -173,7 +173,7 @@
+ .TP
+ .BI \-G\0 profile.icm
+ Convert \fIprofile.icm\fP to a Postscript color rendering
+-dictionary (CRD) using \fBfoo2zjs-icc2ps\fP and
++dictionary (CRD) using \fBicc2ps\fP and
+ adjust the printer colors by using the Postscript \fBsetcolorrendering\fP
+ operator.  If \fIprofile.icm\fP is none.icm, then prepare for ordering a
+ ICM custom printer profile (i.e. from www.ICCFactory.com).
+diff -Naur foo2zjs/foo2hp2600-wrapper.in foo2zjs.tpg/foo2hp2600-wrapper.in
+--- foo2zjs/foo2hp2600-wrapper.in	2011-01-20 01:01:09.000000000 +0000
++++ foo2zjs.tpg/foo2hp2600-wrapper.in	2015-04-29 06:18:03.309875440 +0000
+@@ -621,7 +621,7 @@
+     #
+     # Create a Postscript CRD
+     #
+-    ICC2PS=$PREFIX/bin/foo2zjs-icc2ps
++    ICC2PS=$PREFIX/bin/icc2ps
+     if [ -x $ICC2PS ]; then
+ 	case "$GAMMAFILE" in
+ 	none.icm | */none.icm)
+diff -Naur foo2zjs/foo2lava-wrapper.1in foo2zjs.tpg/foo2lava-wrapper.1in
+--- foo2zjs/foo2lava-wrapper.1in	2013-06-18 09:46:02.000000000 +0000
++++ foo2zjs.tpg/foo2lava-wrapper.1in	2015-04-29 06:18:08.749024002 +0000
+@@ -167,7 +167,7 @@
+ .TP
+ .BI \-G\0 profile.icm
+ Convert \fIprofile.icm\fP to a Postscript color rendering
+-dictionary (CRD) using \fBfoo2zjs-icc2ps\fP and
++dictionary (CRD) using \fBicc2ps\fP and
+ adjust the printer colors by using the Postscript \fBsetcolorrendering\fP
+ operator.  (WORK IN PROGRESS).
+ .TP
+diff -Naur foo2zjs/foo2lava-wrapper.in foo2zjs.tpg/foo2lava-wrapper.in
+--- foo2zjs/foo2lava-wrapper.in	2014-06-27 14:34:46.000000000 +0000
++++ foo2zjs.tpg/foo2lava-wrapper.in	2015-04-29 06:18:03.311875494 +0000
+@@ -541,7 +541,7 @@
+     #
+     # Create a Postscript CRD
+     #
+-    ICC2PS=$PREFIX/bin/foo2zjs-icc2ps
++    ICC2PS=$PREFIX/bin/icc2ps
+     if [ -x $ICC2PS ]; then
+         case "$GAMMAFILE" in
+         none.icm | */none.icm)
+diff -Naur foo2zjs/foo2oak-wrapper.1in foo2zjs.tpg/foo2oak-wrapper.1in
+--- foo2zjs/foo2oak-wrapper.1in	2013-06-18 09:46:02.000000000 +0000
++++ foo2zjs.tpg/foo2oak-wrapper.1in	2015-04-29 06:18:08.750024029 +0000
+@@ -160,7 +160,7 @@
+ .TP
+ .BI \-G\0 profile.icm
+ Convert \fIprofile.icm\fP to a Postscript color rendering
+-dictionary (CRD) using \fBfoo2zjs-icc2ps\fP and
++dictionary (CRD) using \fBicc2ps\fP and
+ adjust the printer colors by using the Postscript \fBsetcolorrendering\fP
+ operator.  (WORK IN PROGRESS).
+ .TP
+diff -Naur foo2zjs/foo2oak-wrapper.in foo2zjs.tpg/foo2oak-wrapper.in
+--- foo2zjs/foo2oak-wrapper.in	2011-08-07 16:49:30.000000000 +0000
++++ foo2zjs.tpg/foo2oak-wrapper.in	2015-04-29 06:18:03.313875549 +0000
+@@ -550,7 +550,7 @@
+     #
+     # Create a Postscript CRD
+     #
+-    ICC2PS=$PREFIX/bin/foo2zjs-icc2ps
++    ICC2PS=$PREFIX/bin/icc2ps
+     if [ -x $ICC2PS ]; then
+ 	case "$GAMMAFILE" in
+ 	none | none.icm | */none.icm)
+diff -Naur foo2zjs/foo2qpdl-wrapper.1in foo2zjs.tpg/foo2qpdl-wrapper.1in
+--- foo2zjs/foo2qpdl-wrapper.1in	2014-01-27 02:38:32.000000000 +0000
++++ foo2zjs.tpg/foo2qpdl-wrapper.1in	2015-04-29 06:18:08.751024056 +0000
+@@ -173,7 +173,7 @@
+ .TP
+ .BI \-G\0 profile.icm
+ Convert \fIprofile.icm\fP to a Postscript color rendering
+-dictionary (CRD) using \fBfoo2zjs-icc2ps\fP and
++dictionary (CRD) using \fBicc2ps\fP and
+ adjust the printer colors by using the Postscript \fBsetcolorrendering\fP
+ operator.  (WORK IN PROGRESS).
+ .TP
+diff -Naur foo2zjs/foo2qpdl-wrapper.in foo2zjs.tpg/foo2qpdl-wrapper.in
+--- foo2zjs/foo2qpdl-wrapper.in	2014-01-27 02:34:29.000000000 +0000
++++ foo2zjs.tpg/foo2qpdl-wrapper.in	2015-04-29 06:18:03.315875603 +0000
+@@ -541,7 +541,7 @@
+     #
+     # Create a Postscript CRD
+     #
+-    ICC2PS=$PREFIX/bin/foo2zjs-icc2ps
++    ICC2PS=$PREFIX/bin/icc2ps
+     if [ -x $ICC2PS ]; then
+ 	case "$GAMMAFILE" in
+ 	none | none.icm | */none.icm)
+diff -Naur foo2zjs/foo2slx-wrapper.1in foo2zjs.tpg/foo2slx-wrapper.1in
+--- foo2zjs/foo2slx-wrapper.1in	2013-06-18 09:46:03.000000000 +0000
++++ foo2zjs.tpg/foo2slx-wrapper.1in	2015-04-29 06:18:08.752024084 +0000
+@@ -129,7 +129,7 @@
+ .TP
+ .BI \-G\0 profile.icm
+ Convert \fIprofile.icm\fP to a Postscript color rendering
+-dictionary (CRD) using \fBfoo2zjs-icc2ps\fP and
++dictionary (CRD) using \fBicc2ps\fP and
+ adjust the printer colors by using the Postscript \fBsetcolorrendering\fP
+ operator.  (WORK IN PROGRESS).
+ .TP
+diff -Naur foo2zjs/foo2slx-wrapper.in foo2zjs.tpg/foo2slx-wrapper.in
+--- foo2zjs/foo2slx-wrapper.in	2011-01-14 23:21:39.000000000 +0000
++++ foo2zjs.tpg/foo2slx-wrapper.in	2015-04-29 06:18:03.317875658 +0000
+@@ -507,7 +507,7 @@
+     #
+     # Create a Postscript CRD
+     #
+-    ICC2PS=$PREFIX/bin/foo2zjs-icc2ps
++    ICC2PS=$PREFIX/bin/icc2ps
+     if [ -x $ICC2PS ]; then
+ 	case "$GAMMAFILE" in
+ 	none | none.icm | */none.icm)
+diff -Naur foo2zjs/foo2xqx-wrapper.in foo2zjs.tpg/foo2xqx-wrapper.in
+--- foo2zjs/foo2xqx-wrapper.in	2013-12-25 21:00:11.000000000 +0000
++++ foo2zjs.tpg/foo2xqx-wrapper.in	2015-04-29 06:18:03.318875685 +0000
+@@ -504,7 +504,7 @@
+     #
+     # Create a Postscript CRD
+     #
+-    ICC2PS=$PREFIX/bin/foo2zjs-icc2ps
++    ICC2PS=$PREFIX/bin/icc2ps
+     if [ -x $ICC2PS ]; then
+ 	if [ -x /usr/bin/logger ]; then
+ 	    logger -t "$BASENAME" -p lpr.info -- \
+diff -Naur foo2zjs/foo2zjs-wrapper.1in foo2zjs.tpg/foo2zjs-wrapper.1in
+--- foo2zjs/foo2zjs-wrapper.1in	2013-06-18 09:46:03.000000000 +0000
++++ foo2zjs.tpg/foo2zjs-wrapper.1in	2015-04-29 06:18:08.755024165 +0000
+@@ -205,7 +205,7 @@
+ .TP
+ .BI \-G\0 profile.icm
+ Convert \fIprofile.icm\fP to a Postscript color rendering
+-dictionary (CRD) using \fBfoo2zjs-icc2ps\fP and
++dictionary (CRD) using \fBicc2ps\fP and
+ adjust the printer colors by using the Postscript \fBsetcolorrendering\fP
+ operator.  (WORK IN PROGRESS).
+ .TP
+diff -Naur foo2zjs/foo2zjs-wrapper.in foo2zjs.tpg/foo2zjs-wrapper.in
+--- foo2zjs/foo2zjs-wrapper.in	2012-02-24 01:25:15.000000000 +0000
++++ foo2zjs.tpg/foo2zjs-wrapper.in	2015-04-29 06:18:03.321875767 +0000
+@@ -707,7 +707,7 @@
+     #
+     # Create a Postscript CRD
+     #
+-    ICC2PS=$PREFIX/bin/foo2zjs-icc2ps
++    ICC2PS=$PREFIX/bin/icc2ps
+     if [ -x $ICC2PS ]; then
+ 	case "$GAMMAFILE" in
+ 	none | none.icm | */none.icm)
