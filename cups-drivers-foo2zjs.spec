@@ -146,9 +146,11 @@ rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLX-3175.xml
 %files
 %doc COPYING ChangeLog INSTALL INSTALL.usb README
 %{_bindir}/command2foo2lava-pjl
-%{_prefix}/lib/cups/filter/command2foo2lava-pjl
+#%{_prefix}/lib/cups/filter/command2foo2lava-pjl
 #%{_sysconfdir}/udev/rules.d/70-hplj10xx.rules
 %{_mandir}/man1/arm2hpdl.1*
+%{_mandir}/man1/foo2hbpl2.1*
+%{_mandir}/man1/foo2hbpl2-wrapper.1*
 %{_mandir}/man1/foo2hiperc.1*
 %{_mandir}/man1/foo2hiperc-wrapper.1*
 %{_mandir}/man1/foo2hp.1*
@@ -165,6 +167,7 @@ rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLX-3175.xml
 %{_mandir}/man1/foo2xqx-wrapper.1*
 %{_mandir}/man1/foo2zjs-pstops.1*
 %{_mandir}/man1/gipddecode.1*
+%{_mandir}/man1/hbpldecode.1*
 %{_mandir}/man1/hipercdecode.1*
 %{_mandir}/man1/lavadecode.1*
 %{_mandir}/man1/oakdecode.1*
@@ -204,16 +207,26 @@ rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLX-3175.xml
 %{_datadir}/foomatic/db/source/driver/*.xml
 
 %dir %{_datadir}/cups/model/%{rname}
+%{_datadir}/cups/model/%{rname}/Dell-1355.ppd*
+%{_datadir}/cups/model/%{rname}/Dell-C1765.ppd*
+%{_datadir}/cups/model/%{rname}/Epson-AcuLaser_M1400.ppd*
+%{_datadir}/cups/model/%{rname}/Fuji_Xerox-DocuPrint_CM205.ppd*
+%{_datadir}/cups/model/%{rname}/Fuji_Xerox-DocuPrint_CM215.ppd*
+%{_datadir}/cups/model/%{rname}/Fuji_Xerox-DocuPrint_M215.ppd*
+%{_datadir}/cups/model/%{rname}/Fuji_Xerox-DocuPrint_P205.ppd*
 %{_datadir}/cups/model/%{rname}/Generic-OAKT_Printer.ppd*
 %{_datadir}/cups/model/%{rname}/Generic-ZjStream_Printer.ppd*
 %{_datadir}/cups/model/%{rname}/HP-Color_LaserJet_1500.ppd*
 %{_datadir}/cups/model/%{rname}/HP-Color_LaserJet_1600.ppd*
 %{_datadir}/cups/model/%{rname}/HP-Color_LaserJet_2600n.ppd*
 %{_datadir}/cups/model/%{rname}/HP-Color_LaserJet_CP1215.ppd*
+
 %{_datadir}/cups/model/%{rname}/HP-LaserJet_1000.ppd*
 %{_datadir}/cups/model/%{rname}/HP-LaserJet_1005.ppd*
 %{_datadir}/cups/model/%{rname}/HP-LaserJet_1018.ppd*
 %{_datadir}/cups/model/%{rname}/HP-LaserJet_1020.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_1022n.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_1022nw.ppd*
 %{_datadir}/cups/model/%{rname}/HP-LaserJet_1022.ppd*
 %{_datadir}/cups/model/%{rname}/HP-LaserJet_M1005_MFP.ppd*
 %{_datadir}/cups/model/%{rname}/HP-LaserJet_M1120_MFP.ppd*
@@ -225,6 +238,8 @@ rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLX-3175.xml
 %{_datadir}/cups/model/%{rname}/HP-LaserJet_P1505.ppd*
 %{_datadir}/cups/model/%{rname}/HP-LaserJet_P2014.ppd*
 %{_datadir}/cups/model/%{rname}/HP-LaserJet_P2035.ppd*
+%{_datadir}/cups/model/%{rname}/HP-LaserJet_Pro_M1212nf_MFP.ppd*
+%{_datadir}/cups/model/%{rname}/KONICA_MINOLTA-magicolor_2430_DL.ppd*
 %{_datadir}/cups/model/%{rname}/KONICA_MINOLTA-magicolor_2480_MF.ppd*
 %{_datadir}/cups/model/%{rname}/KONICA_MINOLTA-magicolor_2490_MF.ppd*
 %{_datadir}/cups/model/%{rname}/KONICA_MINOLTA-magicolor_2530_DL.ppd*
@@ -235,6 +250,10 @@ rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLX-3175.xml
 %{_datadir}/cups/model/%{rname}/Minolta-magicolor_2200_DL.ppd*
 %{_datadir}/cups/model/%{rname}/Minolta-magicolor_2300_DL.ppd*
 %{_datadir}/cups/model/%{rname}/Minolta-magicolor_2430_DL.ppd*
+%{_datadir}/cups/model/%{rname}/Oki-C301dn.ppd*
+%{_datadir}/cups/model/%{rname}/Oki-C310dn.ppd*
+%{_datadir}/cups/model/%{rname}/Oki-C511dn.ppd*
+%{_datadir}/cups/model/%{rname}/Oki-C810.ppd*
 %{_datadir}/cups/model/%{rname}/Oki-C3100.ppd*
 %{_datadir}/cups/model/%{rname}/Oki-C3200.ppd*
 %{_datadir}/cups/model/%{rname}/Oki-C3300.ppd*
@@ -247,13 +266,18 @@ rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLX-3175.xml
 %{_datadir}/cups/model/%{rname}/Oki-C5800.ppd*
 %{_datadir}/cups/model/%{rname}/Samsung-CLP-300.ppd*
 %{_datadir}/cups/model/%{rname}/Samsung-CLP-315.ppd*
+%{_datadir}/cups/model/%{rname}/Samsung-CLP-325.ppd*
+%{_datadir}/cups/model/%{rname}/Samsung-CLP-365.ppd*
 %{_datadir}/cups/model/%{rname}/Samsung-CLP-600.ppd*
 %{_datadir}/cups/model/%{rname}/Samsung-CLP-610.ppd*
 %{_datadir}/cups/model/%{rname}/Samsung-CLX-2160.ppd*
 %{_datadir}/cups/model/%{rname}/Samsung-CLX-3160.ppd*
 %{_datadir}/cups/model/%{rname}/Samsung-CLX-3175.ppd*
+%{_datadir}/cups/model/%{rname}/Samsung-CLX-3185.ppd*
 %{_datadir}/cups/model/%{rname}/Xerox-Phaser_6110.ppd*
 %{_datadir}/cups/model/%{rname}/Xerox-Phaser_6115MFP.ppd*
+%{_datadir}/cups/model/%{rname}/Xerox-WorkCentre_3045.ppd*
+%{_datadir}/cups/model/%{rname}/Xerox-WorkCentre_6015.ppd*
 %{_datadir}/cups/model/%{rname}/KONICA_MINOLTA-magicolor_1600W.ppd*
 %{_datadir}/cups/model/%{rname}/KONICA_MINOLTA-magicolor_1680MF.ppd*
 %{_datadir}/cups/model/%{rname}/KONICA_MINOLTA-magicolor_1690MF.ppd*
@@ -284,6 +308,8 @@ rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLX-3175.xml
 %{_bindir}/arm2hpdl
 %{_bindir}/foo2hiperc
 %{_bindir}/foo2hiperc-wrapper
+%{_bindir}foo2hbpl2
+%{_bindir}foo2hbpl2-wrapper
 %{_bindir}/foo2hp
 %{_bindir}/foo2hp2600-wrapper
 %{_bindir}/foo2lava
@@ -299,6 +325,7 @@ rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLX-3175.xml
 %{_bindir}/foo2zjs-pstops
 %{_bindir}/gipddecode
 %{_bindir}/hipercdecode
+%{_bindir}/hbpldecode
 %{_bindir}/lavadecode
 %{_bindir}/oakdecode
 %{_bindir}/opldecode
