@@ -308,8 +308,8 @@ rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLX-3175.xml
 %{_bindir}/arm2hpdl
 %{_bindir}/foo2hiperc
 %{_bindir}/foo2hiperc-wrapper
-%{_bindir}foo2hbpl2
-%{_bindir}foo2hbpl2-wrapper
+%{_bindir}/foo2hbpl2
+%{_bindir}/foo2hbpl2-wrapper
 %{_bindir}/foo2hp
 %{_bindir}/foo2hp2600-wrapper
 %{_bindir}/foo2lava
