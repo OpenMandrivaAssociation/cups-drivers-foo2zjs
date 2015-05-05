@@ -1,13 +1,16 @@
 diff -Naur foo2zjs/Makefile foo2zjs.tpg/Makefile
---- foo2zjs/Makefile	2015-04-29 06:22:03.000000000 +0000
-+++ foo2zjs.tpg/Makefile	2015-04-29 06:26:33.417817072 +0000
-@@ -1018,7 +1018,8 @@
+--- foo2zjs/Makefile	2015-05-05 22:15:35.000000000 +0000
++++ foo2zjs.tpg/Makefile	2015-05-05 22:16:30.198207949 +0000
+@@ -1017,9 +1017,9 @@
+ 	cd osx-hotplug; $(MAKE) PREFIX=$(PREFIX) install-hotplug
  
  install-filter:
- 	if [ "$(CUPS_SERVERBIN)" != "" ]; then \
+-	if [ "$(CUPS_SERVERBIN)" != "" ]; then \
 -	    ln -sf $(BIN)/command2foo2lava-pjl $(CUPS_SERVERBIN)/filter/; \
-+	    mkdir -p $(DESTDIR)/$(CUPS_SERVERBIN)/filter/; \
-+	    ln -sf ../../../../command2foo2lava-pjl $(DESTDIR)/$(CUPS_SERVERBIN)/filter/; \
- 	fi
+-	fi
++#	if [ "$(CUPS_SERVERBIN)" != "" ]; then \
++#	    ln -sf $(BIN)/command2foo2lava-pjl $(CUPS_SERVERBIN)/filter/; \
++#	fi
  
  CUPSDCONF=/etc/cups/cupsd.conf
+ CUPSFILESCONF=/etc/cups/cups-files.conf
