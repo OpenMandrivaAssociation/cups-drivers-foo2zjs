@@ -1,5 +1,5 @@
 %define rname	foo2zjs
-%define snap	20150211
+%define snap	20181127
 
 Summary:	A linux printer driver for ZjStream protocol
 Name:		cups-drivers-%{rname}
@@ -148,6 +148,12 @@ rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLX-3175.xml
 %{_bindir}/command2foo2lava-pjl
 #%{_prefix}/lib/cups/filter/command2foo2lava-pjl
 #%{_sysconfdir}/udev/rules.d/70-hplj10xx.rules
+%{_bindir}/ddstdecode
+%{_bindir}/foo2ddst
+%{_bindir}/foo2ddst-wrapper
+%{_mandir}/man1/ddstdecode.1*
+%{_mandir}/man1/foo2ddst-wrapper.1*
+%{_mandir}/man1/foo2ddst.1*
 %{_mandir}/man1/arm2hpdl.1*
 %{_mandir}/man1/foo2hbpl2.1*
 %{_mandir}/man1/foo2hbpl2-wrapper.1*
@@ -207,96 +213,7 @@ rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLX-3175.xml
 %{_datadir}/foomatic/db/source/driver/*.xml
 
 %dir %{_datadir}/cups/model/%{rname}
-%{_datadir}/cups/model/%{rname}/Dell-1355.ppd*
-%{_datadir}/cups/model/%{rname}/Dell-C1765.ppd*
-%{_datadir}/cups/model/%{rname}/Epson-AcuLaser_M1400.ppd*
-%{_datadir}/cups/model/%{rname}/Fuji_Xerox-DocuPrint_CM205.ppd*
-%{_datadir}/cups/model/%{rname}/Fuji_Xerox-DocuPrint_CM215.ppd*
-%{_datadir}/cups/model/%{rname}/Fuji_Xerox-DocuPrint_M215.ppd*
-%{_datadir}/cups/model/%{rname}/Fuji_Xerox-DocuPrint_P205.ppd*
-%{_datadir}/cups/model/%{rname}/Generic-OAKT_Printer.ppd*
-%{_datadir}/cups/model/%{rname}/Generic-ZjStream_Printer.ppd*
-%{_datadir}/cups/model/%{rname}/HP-Color_LaserJet_1500.ppd*
-%{_datadir}/cups/model/%{rname}/HP-Color_LaserJet_1600.ppd*
-%{_datadir}/cups/model/%{rname}/HP-Color_LaserJet_2600n.ppd*
-%{_datadir}/cups/model/%{rname}/HP-Color_LaserJet_CP1215.ppd*
-
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_1000.ppd*
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_1005.ppd*
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_1018.ppd*
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_1020.ppd*
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_1022n.ppd*
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_1022nw.ppd*
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_1022.ppd*
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_M1005_MFP.ppd*
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_M1120_MFP.ppd*
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_M1319_MFP.ppd*
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_P1005.ppd*
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_P1006.ppd*
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_P1007.ppd*
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_P1008.ppd*
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_P1505.ppd*
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_P2014.ppd*
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_P2035.ppd*
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_Pro_M1212nf_MFP.ppd*
-%{_datadir}/cups/model/%{rname}/KONICA_MINOLTA-magicolor_2430_DL.ppd*
-%{_datadir}/cups/model/%{rname}/KONICA_MINOLTA-magicolor_2480_MF.ppd*
-%{_datadir}/cups/model/%{rname}/KONICA_MINOLTA-magicolor_2490_MF.ppd*
-%{_datadir}/cups/model/%{rname}/KONICA_MINOLTA-magicolor_2530_DL.ppd*
-%{_datadir}/cups/model/%{rname}/Kyocera-KM-1635.ppd*
-%{_datadir}/cups/model/%{rname}/Kyocera-KM-2035.ppd*
-%{_datadir}/cups/model/%{rname}/Lexmark-C500.ppd.gz
-%{_datadir}/cups/model/%{rname}/Minolta-Color_PageWorks_Pro_L.ppd*
-%{_datadir}/cups/model/%{rname}/Minolta-magicolor_2200_DL.ppd*
-%{_datadir}/cups/model/%{rname}/Minolta-magicolor_2300_DL.ppd*
-%{_datadir}/cups/model/%{rname}/Minolta-magicolor_2430_DL.ppd*
-%{_datadir}/cups/model/%{rname}/Oki-C301dn.ppd*
-%{_datadir}/cups/model/%{rname}/Oki-C310dn.ppd*
-%{_datadir}/cups/model/%{rname}/Oki-C511dn.ppd*
-%{_datadir}/cups/model/%{rname}/Oki-C810.ppd*
-%{_datadir}/cups/model/%{rname}/Oki-C3100.ppd*
-%{_datadir}/cups/model/%{rname}/Oki-C3200.ppd*
-%{_datadir}/cups/model/%{rname}/Oki-C3300.ppd*
-%{_datadir}/cups/model/%{rname}/Oki-C3400.ppd*
-%{_datadir}/cups/model/%{rname}/Oki-C3530_MFP.ppd*
-%{_datadir}/cups/model/%{rname}/Oki-C5100.ppd*
-%{_datadir}/cups/model/%{rname}/Oki-C5200.ppd*
-%{_datadir}/cups/model/%{rname}/Oki-C5500.ppd*
-%{_datadir}/cups/model/%{rname}/Oki-C5600.ppd*
-%{_datadir}/cups/model/%{rname}/Oki-C5800.ppd*
-%{_datadir}/cups/model/%{rname}/Samsung-CLP-300.ppd*
-%{_datadir}/cups/model/%{rname}/Samsung-CLP-315.ppd*
-%{_datadir}/cups/model/%{rname}/Samsung-CLP-325.ppd*
-%{_datadir}/cups/model/%{rname}/Samsung-CLP-365.ppd*
-%{_datadir}/cups/model/%{rname}/Samsung-CLP-600.ppd*
-%{_datadir}/cups/model/%{rname}/Samsung-CLP-610.ppd*
-%{_datadir}/cups/model/%{rname}/Samsung-CLX-2160.ppd*
-%{_datadir}/cups/model/%{rname}/Samsung-CLX-3160.ppd*
-%{_datadir}/cups/model/%{rname}/Samsung-CLX-3175.ppd*
-%{_datadir}/cups/model/%{rname}/Samsung-CLX-3185.ppd*
-%{_datadir}/cups/model/%{rname}/Xerox-Phaser_6110.ppd*
-%{_datadir}/cups/model/%{rname}/Xerox-Phaser_6115MFP.ppd*
-%{_datadir}/cups/model/%{rname}/Xerox-WorkCentre_3045.ppd*
-%{_datadir}/cups/model/%{rname}/Xerox-WorkCentre_6015.ppd*
-%{_datadir}/cups/model/%{rname}/KONICA_MINOLTA-magicolor_1600W.ppd*
-%{_datadir}/cups/model/%{rname}/KONICA_MINOLTA-magicolor_1680MF.ppd*
-%{_datadir}/cups/model/%{rname}/KONICA_MINOLTA-magicolor_1690MF.ppd*
-%{_datadir}/cups/model/%{rname}/KONICA_MINOLTA-magicolor_4690MF.ppd*
-%{_datadir}/cups/model/%{rname}/Samsung-CLP-310.ppd*
-# added since 20101208, may conflict with foomatic-db later
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_P1505n.ppd*
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_P2014n.ppd*
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_P2035n.ppd*
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_Pro_CP1025nw.ppd*
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_Pro_P1102.ppd*
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_Pro_P1102w.ppd*
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_Pro_P1566.ppd*
-%{_datadir}/cups/model/%{rname}/HP-LaserJet_Pro_P1606dn.ppd*
-%{_datadir}/cups/model/%{rname}/Oki-C110.ppd*
-%{_datadir}/cups/model/%{rname}/Oki-C5650.ppd*
-%{_datadir}/cups/model/%{rname}/Olivetti-d-Color_P160W.ppd*
-%{_datadir}/cups/model/%{rname}/Samsung-CLP-620.ppd*
-%{_datadir}/cups/model/%{rname}/Xerox-Phaser_6121MFP.ppd*
+%{_datadir}/cups/model/%{rname}/*.ppd*
 
 %{_datadir}/foo2zjs/hplj1020_icon.gif
 %{_datadir}/foo2zjs/hplj10xx_gui.tcl

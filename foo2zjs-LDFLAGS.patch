@@ -1,7 +1,7 @@
-diff -Naur foo2zjs/Makefile foo2zjs.tpg/Makefile
---- foo2zjs/Makefile	2015-04-29 06:38:08.000000000 +0000
-+++ foo2zjs.tpg/Makefile	2015-04-29 06:40:30.561601675 +0000
-@@ -283,6 +283,7 @@
+diff -up foo2zjs/Makefile.0004~ foo2zjs/Makefile
+--- foo2zjs/Makefile.0004~	2018-11-27 18:46:09.704495597 +0100
++++ foo2zjs/Makefile	2018-11-27 18:49:22.224698941 +0100
+@@ -295,6 +295,7 @@ endif
  #CFLAGS +=	-O2 -Wall -Wno-unused-but-set-variable
  CFLAGS +=	-O2
  #CFLAGS +=	-g
@@ -9,55 +9,61 @@ diff -Naur foo2zjs/Makefile foo2zjs.tpg/Makefile
  
  #
  # Rules to create test documents
-@@ -440,32 +441,32 @@
+@@ -461,34 +462,34 @@ all-done:
  
  
- foo2zjs: foo2zjs.o $(LIBJBG)
--	$(CC) $(CFLAGS) -o $@ foo2zjs.o $(LIBJBG)
-+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ foo2zjs.o $(LIBJBG)
- 
- foo2hp: foo2hp.o $(LIBJBG)
--	# $(CC) $(CFLAGS) -o $@ foo2hp.o $(LIBJBG) /usr/local/lib/libdmalloc.a
--	$(CC) $(CFLAGS) -o $@ foo2hp.o $(LIBJBG)
-+	# $(CC) $(CFLAGS) $(LDFLAGS) -o $@ foo2hp.o $(LIBJBG) /usr/local/lib/libdmalloc.a
-+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ foo2hp.o $(LIBJBG)
- 
- foo2xqx: foo2xqx.o $(LIBJBG)
--	$(CC) $(CFLAGS) -o $@ foo2xqx.o $(LIBJBG)
-+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ foo2xqx.o $(LIBJBG)
- 
- foo2lava: foo2lava.o $(LIBJBG)
--	$(CC) $(CFLAGS) -o $@ foo2lava.o $(LIBJBG)
-+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ foo2lava.o $(LIBJBG)
- 
- foo2qpdl: foo2qpdl.o $(LIBJBG)
--	$(CC) $(CFLAGS) -o $@ foo2qpdl.o $(LIBJBG)
-+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ foo2qpdl.o $(LIBJBG)
- 
- foo2oak: foo2oak.o $(LIBJBG)
--	$(CC) $(CFLAGS) -o $@ foo2oak.o $(LIBJBG)
-+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ foo2oak.o $(LIBJBG)
- 
- foo2slx: foo2slx.o $(LIBJBG)
--	$(CC) $(CFLAGS) -o $@ foo2slx.o $(LIBJBG)
-+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ foo2slx.o $(LIBJBG)
- 
- foo2hiperc: foo2hiperc.o $(LIBJBG)
--	$(CC) $(CFLAGS) -o $@ foo2hiperc.o $(LIBJBG)
-+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ foo2hiperc.o $(LIBJBG)
+ foo2ddst: foo2ddst.o $(LIBJBG)
+-	$(CC) $(CFLAGS) -o $@ foo2ddst.o $(LIBJBG)
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ foo2ddst.o $(LIBJBG)
  
  foo2hbpl2: foo2hbpl2.o $(LIBJBG)
 -	$(CC) $(CFLAGS) -o $@ foo2hbpl2.o $(LIBJBG)
 +	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ foo2hbpl2.o $(LIBJBG)
  
+ foo2hp: foo2hp.o $(LIBJBG)
+-	$(CC) $(CFLAGS) -o $@ foo2hp.o $(LIBJBG)
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ foo2hp.o $(LIBJBG)
  
- foo2zjs-wrapper: foo2zjs-wrapper.in Makefile
-@@ -542,40 +543,40 @@
+ foo2hiperc: foo2hiperc.o $(LIBJBG)
+-	$(CC) $(CFLAGS) -o $@ foo2hiperc.o $(LIBJBG)
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ foo2hiperc.o $(LIBJBG)
+ 
+ foo2lava: foo2lava.o $(LIBJBG)
+-	$(CC) $(CFLAGS) -o $@ foo2lava.o $(LIBJBG)
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ foo2lava.o $(LIBJBG)
+ 
+ foo2oak: foo2oak.o $(LIBJBG)
+-	$(CC) $(CFLAGS) -o $@ foo2oak.o $(LIBJBG)
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ foo2oak.o $(LIBJBG)
+ 
+ foo2qpdl: foo2qpdl.o $(LIBJBG)
+-	$(CC) $(CFLAGS) -o $@ foo2qpdl.o $(LIBJBG)
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ foo2qpdl.o $(LIBJBG)
+ 
+ foo2slx: foo2slx.o $(LIBJBG)
+-	$(CC) $(CFLAGS) -o $@ foo2slx.o $(LIBJBG)
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ foo2slx.o $(LIBJBG)
+ 
+ foo2xqx: foo2xqx.o $(LIBJBG)
+-	$(CC) $(CFLAGS) -o $@ foo2xqx.o $(LIBJBG)
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ foo2xqx.o $(LIBJBG)
+ 
+ foo2zjs: foo2zjs.o $(LIBJBG)
+-	$(CC) $(CFLAGS) -o $@ foo2zjs.o $(LIBJBG)
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ foo2zjs.o $(LIBJBG)
+ 
+ 
+ foo2ddst-wrapper: foo2ddst-wrapper.in Makefile
+@@ -571,49 +572,49 @@ ifeq ($(UNAME),Darwin)
  endif
  
  ok: ok.o $(LIBJBG)
 -	$(CC) $(CFLAGS) ok.o $(LIBJBG) -o $@
 +	$(CC) $(CFLAGS) $(LDFLAGS) ok.o $(LIBJBG) -o $@
+ 
+ ddstdecode: ddstdecode.o $(LIBJBG)
+-	$(CC) $(CFLAGS) ddstdecode.o $(LIBJBG) -o $@
++	$(CC) $(CFLAGS) $(LDFLAGS) ddstdecode.o $(LIBJBG) -o $@
  
  gipddecode: gipddecode.o $(LIBJBG)
 -	$(CC) $(CFLAGS) gipddecode.o $(LIBJBG) -o $@
@@ -104,8 +110,16 @@ diff -Naur foo2zjs/Makefile foo2zjs.tpg/Makefile
 +	$(CC) $(CFLAGS) $(LDFLAGS) zjsdecode.o $(LIBJBG) -o $@
  
  command2foo2lava-pjl: command2foo2lava-pjl.o
- 	$(CC) $(CFLAGS) -L/usr/local/lib command2foo2lava-pjl.o -lcups -o $@
-@@ -1848,7 +1849,7 @@
+-	$(CC) $(CFLAGS) -L/usr/local/lib command2foo2lava-pjl.o -lcups -o $@
++	$(CC) $(CFLAGS) $(LDFLAGS) -L/usr/local/lib command2foo2lava-pjl.o -lcups -o $@
+ 
+ command2foo2lava-pjl.o: command2foo2lava-pjl.c
+-	$(CC) $(CFLAGS) -I/usr/local/include -c command2foo2lava-pjl.c
++	$(CC) $(CFLAGS) $(LDFLAGS) -I/usr/local/include -c command2foo2lava-pjl.c
+ 
+ #
+ # Installation rules
+@@ -1938,7 +1939,7 @@ FRC:
  misc: pksm2bitcmyk phorum-logo.gif
  
  pksm2bitcmyk: pksm2bitcmyk.c
