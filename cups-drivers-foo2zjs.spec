@@ -37,7 +37,7 @@ printers. Please read the README file for a list of supported printers.
 
 %prep
 %setup -qn %{rname}
-%apply_patches
+%autopatch -p1
 
 # fix attribs
 chmod 644 COPYING ChangeLog INSTALL INSTALL.usb README
