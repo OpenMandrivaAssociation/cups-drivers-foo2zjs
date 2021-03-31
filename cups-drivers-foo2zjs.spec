@@ -1,258 +1,416 @@
-%define rname	foo2zjs
-%define snap	20181127
+%global foo2zjs_ver 20201003
+%global _smp_ncpus_max 1
 
-Summary:	A linux printer driver for ZjStream protocol
-Name:		cups-drivers-%{rname}
-Version:	0.0
-Release:	0.%{snap}.1
-Group:		System/Printing
-License:	GPLv2
-Url:		http://foo2zjs.rkkda.com/
-Source0:	http://foo2zjs.rkkda.com/foo2zjs.tar.gz
-Patch0:		foo2zjs-system_icc2ps.patch
-Patch1:		foo2zjs-makeinstall.patch
-Patch2:		foo2zjs-cflags.patch
-Patch3:		foo2zjs-system_jbig.patch
-Patch4:		foo2zjs-LDFLAGS.patch
+Name:           cups-drivers-foo2zjs
+Version:        0.%{foo2zjs_ver}
+Release:        1
 
-BuildRequires:	bc
-BuildRequires:	foomatic-filters
-BuildRequires:	cups-filters-devel
-BuildRequires:	cups-filters
-BuildRequires:	ghostscript
-BuildRequires:  groff-base
-BuildRequires:	jbig-devel
-Requires:	foomatic-db-engine
-Requires:	mscompress
-Requires:	wget
-# psutils, unzip, and mscompress needed by the foo2zjs driver
-Requires:	psutils
-Requires:	unzip
+# Main code - GPLv2.
+# Some PPD files - GPLv3+
+# icc2ps - MIT
+License:        GPLv2 and GPLv3+ and MIT
+Summary:        Linux printer driver for ZjStream protocol
+URL:            http://foo2zjs.rkkda.com/
+Source0:        %{url}/foo2zjs.tar.gz#/foo2zjs-%{foo2zjs_ver}.tar.gz
+
+Patch0:         foo2zjs-dynamic-jbig.patch
+Patch1:         foo2zjs-device-ids.patch
+Patch2:         foo2zjs-fsf-address.patch
+Patch3:         foo2zjs-man-pages.patch
+
+BuildRequires:  bc
+BuildRequires:  cups-devel
+BuildRequires:  ghostscript
+BuildRequires:  groff
+BuildRequires:  jbigkit-devel
+BuildRequires:  make
+BuildRequires:  python-cups
+# To scan for dupes
+BuildRequires:	foomatic-db
+
+Requires:       hargyllcms
+Requires:       cups
+Requires:       foomatic-db
+Requires:       lcms2
+
+%package -n cups-drivers-foo2hp
+Summary:        Linux printer driver for HP 1600, HP 2600n
+Requires:       lcms2
+Requires:       %{name}%{?_isa} = %{EVRD}
+
+%package -n cups-drivers-foo2xqx
+Summary:        Linux printer driver for HP LaserJet M1005 MFP
+Requires:       lcms2
+Requires:       %{name}%{?_isa} = %{EVRD}
+
+%package -n cups-drivers-foo2lava
+Summary:        Linux printer driver for Zenographics LAVAFLOW protocol
+Requires:       lcms2
+Requires:       %{name}%{?_isa} = %{EVRD}
+
+%package -n cups-drivers-foo2qpdl
+Summary:        Linux printer driver for Samsung CLP-300, CLP-600, CLP-3160
+Requires:       lcms2
+Requires:       %{name}%{?_isa} = %{EVRD}
+
+%package -n cups-drivers-foo2slx
+Summary:        Linux printer driver for SLX protocol (Lexmark C500n etc.)
+Requires:       lcms2
+Requires:       %{name}%{?_isa} = %{EVRD}
+
+%package -n cups-drivers-foo2hiperc
+Summary:        Linux printer driver for HIPERC protocol (Oki C3400n etc.)
+Requires:       lcms2
+Requires:       %{name}%{?_isa} = %{EVRD}
+
+%package -n cups-drivers-foo2oak
+Summary:        Linux printer driver for OAKT protocol (HPLJ1500 etc.)
+Requires:       lcms2
+Requires:       %{name}%{?_isa} = %{EVRD}
+
+%package -n cups-drivers-foo2hbpl
+Summary:        Linux printer driver for HBPL protocol
+Requires:       lcms2
+Requires:       %{name}%{?_isa} = %{EVRD}
+
+%package -n cups-drivers-foo2ddst
+Summary:        Linux printer driver for DDST protocol
+Requires:       lcms2
+Requires:       %{name}%{?_isa} = %{EVRD}
 
 %description
 foo2zjs is an open source printer driver for printers that use the Zenographics
 ZjStream wire protocol for their print data, such as the Minolta/QMS magicolor
-2300 DL. These printers are often erroneously referred to as winprinters or GDI
-printers. Please read the README file for a list of supported printers.
+2300 DL or Konica Minolta magicolor 2430 DL or HP LaserJet 1020 or HP LaserJet
+Pro P1102 or HP LaserJet Pro P1102w or HP LaserJet Pro CP1025nw. These printers
+are often erroneously referred to as winprinters or GDI printers. However,
+Microsoft GDI only mandates the API between an application and the printer
+driver, not the protocol on the wire between the printer driver and the
+printer. In fact, ZjStream printers are raster printers which happen to use a
+very efficient wire protocol which was developed by Zenographics and licensed
+by most major printer manufacturers for at least some of their product lines.
+ZjStream is just one of many wire protocols that are in use today, such as
+Postscript, PCL, Epson, etc.
+
+Users of this package are requested to visit the author's web page at
+http://foo2zjs.rkkda.com/ and consider contributing.
+
+%description -n cups-drivers-foo2hp
+foo2hp is an open source printer driver for printers that use the Zenographics
+ZjStream wire protocol for their print data, such as the HP Color LaserJet
+2600n and the HP Color LaserJet CP1215. These printers are often erroneously
+referred to as winprinters or GDI printers. However, Microsoft GDI only
+mandates the API between an application and the printer driver, not the
+protocol on the wire between the printer driver and the printer. In fact,
+ZjStream printers are raster printers which happen to use a very efficient wire
+protocol which was developed by Zenographics and licensed by most major printer
+manufacturers for at least some of their product lines. ZjStream is just one of
+many wire protocols that are in use today, such as Postscript, PCL, Epson, etc.
+
+Users of this package are requested to visit the author's web page at
+http://foo2hp.rkkda.com/ and consider contributing.
+
+%description -n cups-drivers-foo2xqx 
+foo2xqx is an open source printer driver for printers that use the HP/Software
+Imaging "XQX" stream wire protocol for their print data, such as the HP
+LaserJet P1005, HP LaserJet P1006, HP LaserJet P1505, and the HP LaserJet M1005
+MFP, These printers are often erroneously referred to as winprinters or GDI
+printers. However, Microsoft GDI only mandates the API between an application
+and the printer driver, not the protocol on the wire between the printer driver
+and the printer. In fact, "XQX" printers are raster printers which happen to
+use a very efficient wire protocol which was developed by HP/Software Imaging.
+"XQX" is just one of many wire protocols that are in use today, such as
+Postscript, PCL, Epson, ZjStream, etc.
+
+Users of this package are requested to visit the author's web page at
+http://foo2xqx.rkkda.com/ and consider contributing.
+
+%description -n cups-drivers-foo2lava
+foo2lava is an open source printer driver for printers that use the
+Zenographics LAVAFLOW wire protocol for their print data, such as the Konica
+Minolta magicolor 1600W or the Konica Minolta magicolor 2530 DL or the Konica
+Minolta magicolor 1690MF or the Konica Minolta magicolor 2490 MFor the Konica
+Minolta magicolor 4690 MF. These printers are often erroneously referred to as
+winprinters or GDI printers. However, Microsoft GDI only mandates the API
+between an application and the printer driver, not the protocol on the wire
+between the printer driver and the printer. In fact, LAVAFLOW printers are
+raster printers which happen to use a very efficient wire protocol which was
+developed by Zenographics and licensed by most major printer manufacturers for
+at least some of their product lines. LAVAFLOW is just one of many wire
+protocols that are in use today, such as Postscript, PCL, Epson, ZjStream, etc.
+
+Users of this package are requested to visit the author's web page at
+http://foo2lava.rkkda.com/ and consider contributing.
+
+%description -n cups-drivers-foo2qpdl
+foo2qpdl is an open source printer driver for printers that use the QPDL wire
+protocol for their print data, such as the Samsung CLP-300 or the Samsung
+CLP-310 or the Samsung CLP-315 or the Samsung CLP-325 or the Samsung CLP-365 or
+the Samsung CLP-600 or the Samsung CLP-610ND or the Samsung CLP-620ND or the
+Xerox Phaser 6110. These printers are often erroneously referred to as
+winprinters or GDI printers. However, Microsoft GDI only mandates the API
+between an application and the printer driver, not the protocol on the wire
+between the printer driver and the printer. In fact, QPDL printers are raster
+printers which happen to use a very efficient wire protocol. QPDL is just one
+of many wire protocols that are in use today, such as Postscript, PCL, Epson,
+ZjStream, etc.
+
+Users of this package are requested to visit the author's web page at
+http://foo2qpdl.rkkda.com/ and consider contributing.
+
+%description -n cups-drivers-foo2slx
+foo2slx is an open source printer driver for printers that use the Software
+Imaging K.K. SLX wire protocol for their print data, such as the Lexmark C500n.
+These printers are often erroneously referred to as winprinters or GDI
+printers. However, Microsoft GDI only mandates the API between an application
+and the printer driver, not the protocol on the wire between the printer driver
+and the printer. In fact, SLX printers are raster printers which happen to use
+a very efficient wire protocol which was developed by Zenographics and cloned
+by Software Imaging K.K. and licensed by most major printer manufacturers for
+at least some of their product lines. SLX is just one of many wire protocols
+that are in use today, such as Postscript, PCL, Epson, ZjStream, etc.
+
+Users of this package are requested to visit the author's web page at
+http://foo2slx.rkkda.com/ and consider contributing.
+
+%description -n cups-drivers-foo2hiperc
+foo2hiperc is an open source printer driver for printers that use the HIPERC
+wire protocol for their print data, such as the Oki C3400n and the Oki C5500n.
+
+NOTE: This driver is currently in Alpha and supports uncompressed mode
+only.
+
+Users of this package are requested to visit the author's web page at
+http://foo2hiperc.rkkda.com/ and consider contributing.
+
+%description -n cups-drivers-foo2oak
+foo2oak is a printer driver for printers that use the Oak Technology (now
+Zoran) OAKT protocol for their print data, such as the HP Color LaserJet 1500,
+Kyocera KM-1635 and the Kyocera KM-2035. These printers are often erroneously
+referred to as winprinters or GDI printers. However, Microsoft GDI only
+mandates the API between an application and the printer driver, not the
+protocol on the wire between the printer driver and the printer. In fact, OAKT
+printers are raster printers which happen to use a fairly efficient wire
+protocol which was developed by Oak Technology and licensed by some printer
+manufacturers for at least some of their product lines. OAKT is just one of
+many wire protocols that are in use today, such as Postscript, PCL, Epson,
+ZjStream, etc. 
+
+Users of this package are requested to visit the author's web page at
+http://foo2oak.rkkda.com/ and consider contributing.
+
+%description -n cups-drivers-foo2hbpl
+foo2hbpl is an open source printer driver for printers that use the HBPL
+version 2 wire protocol for their print data, such as the Dell 1355, Fuji Xerox
+DocuPrint CM205 or the Xerox WorkCentre 6015. These printers are often
+erroneously referred to as winprinters or GDI printers. However, Microsoft GDI
+only mandates the API between an application and the printer driver, not the
+protocol on the wire between the printer driver and the printer. In fact, HBPL
+printers are raster printers which happen to use a very efficient wire
+protocol. HBPL is just one of many wire protocols that are in use today, such
+as Postscript, PCL, Epson, ZjStream, etc.
+
+Users of this package are requested to visit the author's web page at
+http://foo2oak.rkkda.com/ and consider contributing.
+
+%description -n cups-drivers-foo2ddst
+foo2ddst is an open source printer driver for printers that use the DDST wire
+protocol for their print data, such as the Ricoh SP 112, or the Ricoh SP 201Nw.
+These printers are often erroneously referred to as winprinters or GDI printers.
+However, Microsoft GDI only mandates the API between an application and the
+printer driver, not the protocol on the wire between the printer driver and the
+printer. In fact, DDST printers are raster printers which happen to use a very
+efficient wire protocol. DDST is just one of many wire protocols that are in
+use today, such as Postscript, PCL, Epson, ZjStream, etc.
+
+Users of this package are requested to visit the author's web page at
+http://foo2oak.rkkda.com/ and consider contributing.
 
 %prep
-%setup -qn %{rname}
-%autopatch -p1
+%autosetup -n foo2zjs -p1
 
-# fix attribs
-chmod 644 COPYING ChangeLog INSTALL INSTALL.usb README
+sed -i -e s/foo2zjs-icc2ps/icc2ps/g *wrapper*
+sed -e 's/775/755/' -e 's/664/644/' -i Makefile
+
+# Samsung CLP-310 already included in foomatic-db package
+rm foomatic-db/printer/Samsung-CLP-310.xml
+rm PPD/Samsung-CLP-310.ppd
+
+# Unbundling jbig library
+rm -f jbig*.{c,h}
 
 %build
-make CFLAGS="%{optflags}" LDFLAGS="%{ldflags}"
-
-# Fit udev rules to stricter syntax of new udev
-# (blino) don't try to rename the device,
-#         it has already been renamed to the exact same name in 50-mdk.rules
-#         so udev would skip the rule
-#perl -p -i -e 's:(KERNEL|BUS|SYSFS.*?)=([^=]):$1==$2:g;s{SYMLINK=}{SYMLINK+=}g;s{(?:NAME|MODE)=.*?,\s*}{}g;s:===:==:g' hplj10xx.rules
+%set_build_flags
+%make_build
 
 %install
 install -d %{buildroot}%{_bindir}
-install -d %{buildroot}%{_sbindir}
-install -d %{buildroot}%{_datadir}/foomatic/db/source/{driver,opt,printer}
-install -d %{buildroot}%{_datadir}/cups/model/%{rname}
-#install -d %{buildroot}%{_sysconfdir}/udev/rules.d
+install -d %{buildroot}%{_datadir}/foomatic/db/source/driver
+install -d %{buildroot}%{_datadir}/foomatic/db/source/printer
+install -d %{buildroot}%{_datadir}/foomatic/db/source/opt
+install -d %{buildroot}%{_datadir}/cups/model
 
-make install \
-	DESTDIR="%{buildroot}" \
-	PREFIX=%{buildroot}%{_prefix} \
-	BIN=%{buildroot}%{_bindir} \
-	SHAREZJS=%{buildroot}%{_datadir}/%{rname} \
-	SHAREOAK=%{buildroot}%{_datadir}/foo2oak \
-	SHAREHP=%{buildroot}%{_datadir}/foo2hp \
-	SHAREXQX=%{buildroot}%{_datadir}/foo2xqx \
-	SHARELAVA=%{buildroot}%{_datadir}/foo2lava \
-	SHAREQPDL=%{buildroot}%{_datadir}/foo2qpdl \
-	MANDIR=%{buildroot}%{_mandir} \
-	DOCDIR=%{buildroot}%{_datadir}/doc/%{rname}/ \
-	FOODB=%{buildroot}%{_datadir}/foomatic/db/source \
-	MODEL=%{buildroot}%{_datadir}/cups/model/%{rname}
+make DESTDIR=%{buildroot} BINPROGS= \
+    install-prog install-extra install-crd install-man install-foo install-ppd
 
-# bork, bork, bork
-mv %{buildroot}/bin/usb_printerid %{buildroot}%{_bindir}/
+# Remove man page for usb_printerid which we don't ship
+rm -f %{buildroot}%{_mandir}/man1/usb_printerid.1
 
-install -m0755 getweb %{buildroot}%{_bindir}/%{rname}-getweb
-
-mv %{buildroot}%{_bindir}/usb_printerid %{buildroot}%{_sbindir}/usb_printerid
-
-install -m0755 hplj1000 %{buildroot}%{_sbindir}/
-sed -i -e 's:\./(getweb):%{rname}-$1:g' %{buildroot}%{_sbindir}/hplj1000
-sed -i -e 's:/bin(/usb_printerid):%{_sbindir}$1:g' %{buildroot}%{_sbindir}/hplj1000
-
-ln -s hplj1000 %{buildroot}%{_sbindir}/hplj1005
-ln -s hplj1000 %{buildroot}%{_sbindir}/hplj1018
-ln -s hplj1000 %{buildroot}%{_sbindir}/hplj1020
-
-#install -m0644 hplj10xx.rules %{buildroot}%{_sysconfdir}/udev/rules.d/70-hplj10xx.rules
-#perl -p -i -e 's:%{_sysconfdir}/hotplug/usb:%{_sbindir}:' %{buildroot}%{_sysconfdir}/udev/rules.d/70-hplj10xx.rules
-
-mkdir -p %{buildroot}%{_datadir}/%{name}/firmware
-
-# cleanup
-rm -rf %{buildroot}%{_datadir}/doc/%{rname}
-rm -rf %{buildroot}%{_mandir}/man1/foo2zjs-icc2ps.1*
-
-# provided by foomatic-db
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Generic-OAKT_Printer.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/HP-Color_LaserJet_CP1215.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/KONICA_MINOLTA-magicolor_2480_MF.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/KONICA_MINOLTA-magicolor_2490_MF.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/KONICA_MINOLTA-magicolor_2530_DL.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Kyocera-KM-1635.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Kyocera-KM-2035.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Xerox-Phaser_6110.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Xerox-Phaser_6115MFP.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/HP-Color_LaserJet_CP1215.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/KONICA_MINOLTA-magicolor_2480_MF.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/KONICA_MINOLTA-magicolor_2490_MF.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/KONICA_MINOLTA-magicolor_2530_DL.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Kyocera-KM-1635.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Kyocera-KM-2035.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Xerox-Phaser_6110.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Xerox-Phaser_6115MFP.xml
-# these are provided by foomatic-db-4.0-2.20091014.1mdv2010.0
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Generic-ZjStream_Printer.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/HP-LaserJet_1018.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/HP-LaserJet_M1120_MFP.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/HP-LaserJet_P1005.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/HP-LaserJet_P1006.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/HP-LaserJet_P1007.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/HP-LaserJet_P1008.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/HP-LaserJet_P1505.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/HP-LaserJet_P2014.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Lexmark-C500.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Minolta-magicolor_2200_DL.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Oki-C3100.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Oki-C3200.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Oki-C3300.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Oki-C3400.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Oki-C3530_MFP.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Oki-C5100.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Oki-C5200.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Oki-C5500.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Oki-C5600.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Oki-C5800.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLP-315.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLP-610.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLX-2160.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLX-3160.xml
-rm -f %{builddir}%{_datadir}/foomatic/db/source/printer/Samsung-CLX-3175.xml
+# Remove foomatic-db entries that are already in foomatic-db
+cd %{buildroot}%{_datadir}/foomatic
+find . -type f |while read r; do
+	[ -e %{_datadir}/foomatic/${r} ] && rm -f ${r}
+done
 
 %files
-%doc COPYING ChangeLog INSTALL INSTALL.usb README
-#%{_bindir}/command2foo2lava-pjl
-#%{_prefix}/lib/cups/filter/command2foo2lava-pjl
-#%{_sysconfdir}/udev/rules.d/70-hplj10xx.rules
-%{_bindir}/ddstdecode
-%{_bindir}/foo2ddst
-%{_bindir}/foo2ddst-wrapper
-%{_mandir}/man1/ddstdecode.1*
-%{_mandir}/man1/foo2ddst-wrapper.1*
-%{_mandir}/man1/foo2ddst.1*
-%{_mandir}/man1/arm2hpdl.1*
-%{_mandir}/man1/foo2hbpl2.1*
-%{_mandir}/man1/foo2hbpl2-wrapper.1*
-%{_mandir}/man1/foo2hiperc.1*
-%{_mandir}/man1/foo2hiperc-wrapper.1*
-%{_mandir}/man1/foo2hp.1*
-%{_mandir}/man1/foo2hp2600-wrapper.1*
-%{_mandir}/man1/foo2lava.1*
-%{_mandir}/man1/foo2lava-wrapper.1*
-%{_mandir}/man1/foo2oak.1*
-%{_mandir}/man1/foo2oak-wrapper.1*
-%{_mandir}/man1/foo2qpdl.1*
-%{_mandir}/man1/foo2qpdl-wrapper.1*
-%{_mandir}/man1/foo2slx.1*
-%{_mandir}/man1/foo2slx-wrapper.1*
-%{_mandir}/man1/foo2xqx.1*
-%{_mandir}/man1/foo2xqx-wrapper.1*
-%{_mandir}/man1/foo2zjs-pstops.1*
-%{_mandir}/man1/gipddecode.1*
-%{_mandir}/man1/hbpldecode.1*
-%{_mandir}/man1/hipercdecode.1*
-%{_mandir}/man1/lavadecode.1*
-%{_mandir}/man1/oakdecode.1*
-%{_mandir}/man1/opldecode.1*
-%{_mandir}/man1/printer-profile.1.*
-%{_mandir}/man1/qpdldecode.1*
-%{_mandir}/man1/%{rname}.1*
-%{_mandir}/man1/%{rname}-wrapper.1*
-%{_mandir}/man1/slxdecode.1*
-%{_mandir}/man1/usb_printerid.1*
-%{_mandir}/man1/xqxdecode.1*
-%{_mandir}/man1/zjsdecode.1*
-
-%dir %{_datadir}/foo2hp
-%dir %{_datadir}/foo2hp/icm
-%dir %{_datadir}/%{rname}
-%dir %{_datadir}/%{rname}/crd
-%dir %{_datadir}/%{rname}/firmware
-%dir %{_datadir}/%{rname}/icm
-%dir %{_datadir}/foo2xqx
-%dir %{_datadir}/foo2lava
-%dir %{_datadir}/foo2lava/icm
-%dir %{_datadir}/foo2oak
-%dir %{_datadir}/foo2oak/icm
-%dir %{_datadir}/foo2qpdl
-%dir %{_datadir}/foo2qpdl/crd
-%dir %{_datadir}/foo2qpdl/icm
-
-%{_datadir}/%{rname}/*.ps
-%{_datadir}/%{rname}/crd/*.crd
-%{_datadir}/%{rname}/crd/*.ps
-%{_datadir}/foo2qpdl/crd/*cms*
-%{_datadir}/foo2qpdl/crd/*.ps
-
-%{_datadir}/foomatic/db/source/opt/*.xml
-%{_datadir}/foomatic/db/source/printer/*.xml
-%{_datadir}/foomatic/db/source/driver/*.xml
-
-%dir %{_datadir}/cups/model/%{rname}
-%{_datadir}/cups/model/%{rname}/*.ppd*
-
-%{_datadir}/foo2zjs/hplj1020_icon.gif
-%{_datadir}/foo2zjs/hplj10xx_gui.tcl
-
-%{_bindir}/%{rname}
-%{_bindir}/%{rname}-getweb
-%{_bindir}/%{rname}-wrapper
+%license COPYING
+%doc README ChangeLog
+%{_bindir}/*zjs*
 %{_bindir}/printer-profile
-%{_bindir}/arm2hpdl
-%{_bindir}/foo2hiperc
-%{_bindir}/foo2hiperc-wrapper
-%{_bindir}/foo2hbpl2
-%{_bindir}/foo2hbpl2-wrapper
-%{_bindir}/foo2hp
-%{_bindir}/foo2hp2600-wrapper
-%{_bindir}/foo2lava
-%{_bindir}/foo2lava-wrapper
-%{_bindir}/foo2oak
-%{_bindir}/foo2oak-wrapper
-%{_bindir}/foo2qpdl
-%{_bindir}/foo2qpdl-wrapper
-%{_bindir}/foo2slx
-%{_bindir}/foo2slx-wrapper
-%{_bindir}/foo2xqx
-%{_bindir}/foo2xqx-wrapper
-%{_bindir}/foo2zjs-pstops
-%{_bindir}/gipddecode
-%{_bindir}/hipercdecode
-%{_bindir}/hbpldecode
-%{_bindir}/lavadecode
-%{_bindir}/oakdecode
-%{_bindir}/opldecode
-%{_bindir}/qpdldecode
-%{_bindir}/slxdecode
-%{_bindir}/xqxdecode
-%{_bindir}/zjsdecode
-%{_sbindir}/usb_printerid
-%{_sbindir}/hplj1000
-%{_sbindir}/hplj1005
-%{_sbindir}/hplj1018
-%{_sbindir}/hplj1020
+%{_datadir}/foo2zjs
+%{_mandir}/man1/*zjs*
+%{_mandir}/man1/printer-profile.1*
+%{_datadir}/foomatic/db/source/driver/foo2zjs.xml
+%{_datadir}/foomatic/db/source/driver/foo2zjs-z1.xml
+%{_datadir}/foomatic/db/source/driver/foo2zjs-z2.xml
+%{_datadir}/foomatic/db/source/driver/foo2zjs-z3.xml
+%{_datadir}/foomatic/db/source/opt/foo2zjs*.xml
+%{_datadir}/foomatic/db/source/opt/foo2xxx*.xml
+%{_datadir}/foomatic/db/source/printer/HP-LaserJet_1*.xml
+%{_datadir}/foomatic/db/source/printer/Minolta-magicolor_2300_DL.xml
+%{_datadir}/foomatic/db/source/printer/Minolta-magicolor_2430_DL.xml
+%{_datadir}/cups/model/Generic-ZjStream_Printer.ppd.gz
+%{_datadir}/cups/model/HP-LaserJet_1*.ppd.gz
+%{_datadir}/cups/model/KONICA_MINOLTA-magicolor_2430_DL.ppd.gz
+%{_datadir}/cups/model/Minolta-Color_PageWorks_Pro_L.ppd.gz
+%{_datadir}/cups/model/Minolta-magicolor_2200_DL.ppd.gz
+%{_datadir}/cups/model/Minolta-magicolor_2300_DL.ppd.gz
+%{_datadir}/cups/model/Minolta-magicolor_2430_DL.ppd.gz
+%{_datadir}/cups/model/Olivetti-d-Color_P160W.ppd.gz
 
+%files -n cups-drivers-foo2hp
+%license COPYING
+%doc README ChangeLog
+%{_bindir}/*hp*
+%{_mandir}/man1/*hp*
+%{_datadir}/foomatic/db/source/driver/foo2hp.xml
+%{_datadir}/foomatic/db/source/opt/foo2hp*.xml
+%{_datadir}/foomatic/db/source/printer/HP-Color_LaserJet_1600.xml
+%{_datadir}/foomatic/db/source/printer/HP-Color_LaserJet_2600n.xml
+%{_datadir}/cups/model/HP-Color_LaserJet_CP1215.ppd.gz
+%{_datadir}/cups/model/HP-Color_LaserJet_1600.ppd.gz
+%{_datadir}/cups/model/HP-Color_LaserJet_2600n.ppd.gz
+
+%files -n cups-drivers-foo2xqx
+%license COPYING
+%doc README ChangeLog
+%{_bindir}/*xqx*
+%{_mandir}/man1/*xqx*
+%{_datadir}/foomatic/db/source/driver/foo2xqx.xml
+%{_datadir}/foomatic/db/source/opt/foo2xqx*.xml
+%{_datadir}/foomatic/db/source/printer/HP-LaserJet_M*.xml
+%{_datadir}/foomatic/db/source/printer/HP-LaserJet_P*.xml
+%{_datadir}/cups/model/HP-LaserJet_M*.ppd.gz
+%{_datadir}/cups/model/HP-LaserJet_P*.ppd.gz
+
+%files -n cups-drivers-foo2lava
+%license COPYING
+%doc README ChangeLog
+%{_bindir}/*lava*
+%{_bindir}/opldecode
+%{_mandir}/man1/*lava*
+%{_mandir}/man1/opldecode.1*
+%{_datadir}/foomatic/db/source/driver/foo2lava.xml
+%{_datadir}/foomatic/db/source/opt/foo2lava*.xml
+%{_datadir}/cups/model/KONICA_MINOLTA-magicolor_2480_MF.ppd.gz
+%{_datadir}/cups/model/KONICA_MINOLTA-magicolor_2490_MF.ppd.gz
+%{_datadir}/cups/model/KONICA_MINOLTA-magicolor_2530_DL.ppd.gz
+%{_datadir}/cups/model/KONICA_MINOLTA-magicolor_1600W.ppd.gz
+%{_datadir}/cups/model/KONICA_MINOLTA-magicolor_1680MF.ppd.gz
+%{_datadir}/cups/model/KONICA_MINOLTA-magicolor_1690MF.ppd.gz
+%{_datadir}/cups/model/KONICA_MINOLTA-magicolor_4690MF.ppd.gz
+%{_datadir}/cups/model/Xerox-Phaser_6121MFP.ppd.gz
+
+%files -n cups-drivers-foo2qpdl
+%license COPYING
+%doc README ChangeLog
+%{_bindir}/*qpdl*
+%{_mandir}/man1/*qpdl*
+%{_datadir}/foomatic/db/source/driver/foo2qpdl.xml
+%{_datadir}/foomatic/db/source/opt/foo2qpdl*.xml
+%{_datadir}/foomatic/db/source/printer/Samsung-CL*.xml
+%{_datadir}/foomatic/db/source/printer/Samsung-ML*.xml
+%{_datadir}/cups/model/Samsung-CL*.ppd.gz
+%{_datadir}/cups/model/Samsung-ML*.ppd.gz
+%{_datadir}/cups/model/Xerox-Phaser_6110.ppd.gz
+%{_datadir}/cups/model/Xerox-Phaser_6115MFP.ppd.gz
+%{_datadir}/foo2qpdl
+
+%files -n cups-drivers-foo2slx
+%license COPYING
+%doc README ChangeLog
+%{_bindir}/*slx*
+%{_bindir}/gipddecode
+%{_mandir}/man1/*slx*
+%{_mandir}/man1/gipddecode.1*
+%{_datadir}/foomatic/db/source/driver/foo2slx.xml
+%{_datadir}/foomatic/db/source/opt/foo2slx*.xml
+%{_datadir}/cups/model/Lexmark-C500.ppd.gz
+
+%files -n cups-drivers-foo2hiperc
+%license COPYING
+%doc README ChangeLog
+%{_bindir}/*hiperc*
+%{_mandir}/man1/*hiperc*
+%{_datadir}/foomatic/db/source/driver/foo2hiperc*.xml
+%{_datadir}/foomatic/db/source/opt/foo2hiperc*.xml
+%{_datadir}/cups/model/Oki-C*.ppd.gz
+
+%files -n cups-drivers-foo2oak
+%license COPYING
+%doc README ChangeLog
+%{_bindir}/*oak*
+%{_mandir}/man1/*oak*
+%{_datadir}/foomatic/db/source/opt/foo2oak*
+%{_datadir}/foomatic/db/source/driver/foo2oak.xml
+%{_datadir}/foomatic/db/source/driver/foo2oak-z1.xml
+%{_datadir}/foomatic/db/source/printer/HP-Color_LaserJet_1500.xml
+%{_datadir}/cups/model/Generic-OAKT_Printer.ppd.gz
+%{_datadir}/cups/model/HP-Color_LaserJet_1500.ppd.gz
+%{_datadir}/cups/model/Kyocera-KM-1635.ppd.gz
+%{_datadir}/cups/model/Kyocera-KM-2035.ppd.gz
+
+%files -n cups-drivers-foo2hbpl
+%license COPYING
+%doc README ChangeLog
+%{_bindir}/*hbpl*
+%{_mandir}/man1/*hbpl*
+%{_datadir}/foomatic/db/source/opt/foo2hbpl2*
+%{_datadir}/foomatic/db/source/driver/foo2hbpl2.xml
+%{_datadir}/cups/model/Dell-1355.ppd.gz
+%{_datadir}/cups/model/Dell-C1765.ppd.gz
+%{_datadir}/cups/model/Epson-AcuLaser_CX17NF.ppd.gz
+%{_datadir}/cups/model/Epson-AcuLaser_M1400.ppd.gz
+%{_datadir}/cups/model/Fuji_Xerox-DocuPrint_CM205.ppd.gz
+%{_datadir}/cups/model/Fuji_Xerox-DocuPrint_CM215.ppd.gz
+%{_datadir}/cups/model/Fuji_Xerox-DocuPrint_M215.ppd.gz
+%{_datadir}/cups/model/Fuji_Xerox-DocuPrint_P205.ppd.gz
+%{_datadir}/cups/model/Xerox-Phaser_3010.ppd.gz
+%{_datadir}/cups/model/Xerox-Phaser_3040.ppd.gz
+%{_datadir}/cups/model/Xerox-WorkCentre_3045.ppd.gz
+%{_datadir}/cups/model/Xerox-WorkCentre_6015.ppd.gz
+
+%files -n cups-drivers-foo2ddst
+%license COPYING
+%doc README ChangeLog
+%{_bindir}/*ddst*
+%{_mandir}/man1/*ddst*
+%{_datadir}/foomatic/db/source/driver/foo2ddst.xml
+%{_datadir}/foomatic/db/source/opt/foo2ddst-InputSlot.xml
+%{_datadir}/foomatic/db/source/opt/foo2ddst-MediaType.xml
+%{_datadir}/foomatic/db/source/opt/foo2ddst-PageSize.xml
+%{_datadir}/foomatic/db/source/opt/foo2ddst-Resolution.xml
+%{_datadir}/foomatic/db/source/printer/Ricoh-SP_112.xml
+%{_datadir}/foomatic/db/source/printer/Ricoh-SP_201Nw.xml
+%{_datadir}/cups/model/Ricoh-SP_112.ppd.gz
+%{_datadir}/cups/model/Ricoh-SP_201Nw.ppd.gz
