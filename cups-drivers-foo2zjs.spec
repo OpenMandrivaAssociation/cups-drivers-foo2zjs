@@ -27,6 +27,17 @@ BuildRequires:  make
 BuildRequires:  python-cups
 # To scan for dupes
 BuildRequires:	foomatic-db
+# Make sure we don't detect files from our own package as dupes
+BuildConflicts:	%{name}
+BuildConflicts:	cups-drivers-foo2hp
+BuildConflicts:	cups-drivers-foo2xqx
+BuildConflicts:	cups-drivers-foo2lava
+BuildConflicts:	cups-drivers-foo2qpdl
+BuildConflicts:	cups-drivers-foo2slx
+BuildConflicts:	cups-drivers-foo2hiperc
+BuildConflicts:	cups-drivers-foo2oak
+BuildConflicts:	cups-drivers-foo2hbpl
+BuildConflicts:	cups-drivers-foo2ddst
 
 Requires:       hargyllcms
 Requires:       cups
@@ -259,7 +270,9 @@ rm -f %{buildroot}%{_mandir}/man1/usb_printerid.1
 # Remove foomatic-db entries that are already in foomatic-db
 cd %{buildroot}%{_datadir}/foomatic
 find . -type f |while read r; do
-	[ -e %{_datadir}/foomatic/${r} ] && rm -f ${r}
+	if [ -e "%{_datadir}/foomatic/${r}" ]; then
+		rm -f "${r}"
+	fi
 done
 
 %files
