@@ -3,7 +3,7 @@
 
 Name:           cups-drivers-foo2zjs
 Version:        0.%{foo2zjs_ver}
-Release:        1
+Release:        2
 
 # Main code - GPLv2.
 # Some PPD files - GPLv3+
