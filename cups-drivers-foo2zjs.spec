@@ -10,7 +10,7 @@ Release:        2
 # icc2ps - MIT
 License:        GPLv2 and GPLv3+ and MIT
 Summary:        Linux printer driver for ZjStream protocol
-URL:            http://foo2zjs.rkkda.com/
+URL:            https://foo2zjs.rkkda.com/
 Source0:        %{url}/foo2zjs.tar.gz#/foo2zjs-%{foo2zjs_ver}.tar.gz
 
 Patch0:         foo2zjs-dynamic-jbig.patch
